@@ -46,7 +46,11 @@ public class MarriedBouquet implements Bouquet<GeneralFlower> {
         return flowerList;
     }
 
-    public void setAssembledPrice(float price) {
+    public void setAssemblePrice(float price) {
         assemblePrice = price;
+    }
+
+    public float getAssemblePrice() {
+        return assemblePrice;
     }
 }
