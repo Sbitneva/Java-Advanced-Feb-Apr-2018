@@ -19,6 +19,10 @@ public class Chamomile extends GeneralFlower {
         return true;
     }
 
+    public void setPetals(int petals) {
+        this.petals = petals;
+    }
+
     public int getPetals() {
         return petals;
     }

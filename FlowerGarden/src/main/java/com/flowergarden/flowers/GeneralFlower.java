@@ -6,6 +6,10 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower> {
 
+    GeneralFlower(){
+
+    }
+
     FreshnessInteger freshness;
 
     @XmlElement
@@ -33,10 +37,27 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
         return length;
     }
 
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
     @Override
     public int compareTo(GeneralFlower compareFlower) {
         int compareFresh = compareFlower.getFreshness().getFreshness();
         return this.getFreshness().getFreshness() - compareFresh;
     }
 
+
+    @Override
+    public String toString() {
+        return "GeneralFlower{" +
+                "freshness=" + freshness +
+                ", price=" + price +
+                ", length=" + length +
+                '}';
+    }
 }
