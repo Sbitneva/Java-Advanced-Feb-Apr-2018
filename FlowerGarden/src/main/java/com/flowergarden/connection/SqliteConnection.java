@@ -11,20 +11,15 @@ public class SqliteConnection {
 
     private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
 
-    private static SqliteConnection sqliteConnection = new SqliteConnection();
     private final String SQLITE_URL = "jdbc:sqlite:flowergarden.db";
     private Connection connection = null;
 
-    private SqliteConnection() {
+    public SqliteConnection() {
         this.connect();
     }
 
-    public static SqliteConnection getSqliteConnection() {
-        return sqliteConnection;
-    }
 
     private void connect() {
-
         try {
             this.connection = DriverManager.getConnection(SQLITE_URL);
         } catch (SQLException e) {
@@ -38,7 +33,7 @@ public class SqliteConnection {
 
     public void closeConnection() {
         try {
-            sqliteConnection.getConnection().close();
+            connection.close();
         } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }

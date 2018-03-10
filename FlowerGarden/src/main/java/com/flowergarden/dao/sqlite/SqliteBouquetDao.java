@@ -36,7 +36,7 @@ public class SqliteBouquetDao implements BouquetDao {
     private SqliteConnection sqliteConnection = null;
 
     public SqliteBouquetDao() {
-        this.sqliteConnection = SqliteConnection.getSqliteConnection();
+        this.sqliteConnection = new SqliteConnection();
     }
 
     @Override
@@ -48,9 +48,7 @@ public class SqliteBouquetDao implements BouquetDao {
     public float getAssemblePrice(int bouquetId) {
 
         float assemblePrice = 0f;
-
-        try {
-            Connection connection = sqliteConnection.getConnection();
+        try (Connection connection = sqliteConnection.getConnection()){
             PreparedStatement statement = connection.prepareStatement(GET_ASSEMBLE_PRICE_REQUEST);
             statement.setInt(1, bouquetId);
             ResultSet resultSet = statement.executeQuery();

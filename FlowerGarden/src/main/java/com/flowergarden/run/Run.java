@@ -10,7 +10,6 @@ public class Run {
         float price = getBouquetPriceService.getPrice(1);
         System.out.println("The total price of married bouquet is :" + price);
 
-
     }
 
 }

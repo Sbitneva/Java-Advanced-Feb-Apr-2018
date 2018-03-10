@@ -44,7 +44,7 @@ public class SqliteFlowerDao implements FlowerDao {
     private SqliteConnection sqliteConnection = null;
 
     public SqliteFlowerDao() {
-        this.sqliteConnection = SqliteConnection.getSqliteConnection();
+        this.sqliteConnection = new SqliteConnection();
     }
 
     @Override
@@ -52,8 +52,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
         ArrayList<Flower> flowers = new ArrayList<>();
 
-        try {
-            Connection connection = sqliteConnection.getConnection();
+        try (Connection connection = sqliteConnection.getConnection()){
             PreparedStatement statement = connection.prepareStatement(GET_ALL_FLOWERS);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -81,8 +80,7 @@ public class SqliteFlowerDao implements FlowerDao {
     @Override
     public ArrayList<Float> getFlowersPricesForBouquet(int bouquetIndex) {
         ArrayList<Float> prices = new ArrayList<>();
-        try {
-            Connection connection = sqliteConnection.getConnection();
+        try (Connection connection = sqliteConnection.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_PRICES_REQUEST);
             statement.setInt(1, bouquetIndex);
             ResultSet resultSet = statement.executeQuery();
