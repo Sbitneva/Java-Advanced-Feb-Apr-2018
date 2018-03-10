@@ -2,5 +2,10 @@
 coverage:
   status:
     project:
-      default: true
+      default:
+        enabled: true
+    patch:
+      default:
+        enabled: false
+
 comment: false
