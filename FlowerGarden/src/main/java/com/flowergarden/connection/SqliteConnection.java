@@ -31,11 +31,4 @@ public class SqliteConnection {
         return connection;
     }
 
-    public void closeConnection() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            log.error(e.getClass() + " : " + e.getMessage());
-        }
-    }
 }
