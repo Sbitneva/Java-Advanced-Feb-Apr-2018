@@ -1,8 +1,5 @@
 package com.flowergarden.flowers;
 
-import com.flowergarden.flowers.exceptions.FlowerFreshnessException;
-import com.flowergarden.flowers.exceptions.FlowerLengthException;
-import com.flowergarden.flowers.exceptions.FlowerPriceException;
 import com.flowergarden.properties.FreshnessInteger;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -33,8 +30,8 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
         return price;
     }
 
-    public void setPrice(float price){
-            this.price = price;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     @Override
@@ -42,7 +39,7 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
         return length;
     }
 
-    public void setLength(int length){
+    public void setLength(int length) {
         this.length = length;
     }
 

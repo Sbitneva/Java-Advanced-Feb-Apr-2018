@@ -28,8 +28,8 @@ public class FlowersBuilder {
         return this;
     }
 
-    public FlowersBuilder setLength(int length) throws FlowerLengthException{
-        if(length < 1) {
+    public FlowersBuilder setLength(int length) throws FlowerLengthException {
+        if (length < 1) {
             throw new FlowerLengthException("Flower length should has value greaater than 0");
         } else {
             this.length = length;
@@ -37,16 +37,16 @@ public class FlowersBuilder {
         return this;
     }
 
-    public FlowersBuilder setFreshness(FreshnessInteger freshness) throws FlowerFreshnessException{
-        if(freshness.getFreshness() < 1) {
+    public FlowersBuilder setFreshness(FreshnessInteger freshness) throws FlowerFreshnessException {
+        if (freshness.getFreshness() < 1) {
             throw new FlowerFreshnessException("Flower freshness value should be greater than 0");
         }
         this.freshness = freshness;
         return this;
     }
 
-    public FlowersBuilder setPrice(float price) throws FlowerPriceException{
-        if(price <= 0) {
+    public FlowersBuilder setPrice(float price) throws FlowerPriceException {
+        if (price <= 0) {
             throw new FlowerPriceException("Flower price should be greater than 0");
         }
         this.price = price;
@@ -54,7 +54,7 @@ public class FlowersBuilder {
     }
 
     public FlowersBuilder setPetals(int petals) throws ChamomileException {
-        if(petals < 0){
+        if (petals < 0) {
             throw new ChamomileException("Petals value should be greater or equal 0");
         }
         this.petals = petals;

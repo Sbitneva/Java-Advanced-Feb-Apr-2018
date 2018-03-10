@@ -16,6 +16,15 @@ import java.util.ArrayList;
 
 public class SqliteFlowerDao implements FlowerDao {
 
+    /**
+     * SQL request for flower table
+     */
+
+    private static final String GET_ALL_FLOWERS = "select * from flower";
+    private static final String GET_PRICES_REQUEST = "select price from flower where flower.bouquet_id = ?";
+    private static final String ADD_FLOWER_REQUEST = "";
+    private static final String DELETE_FLOWER_REQUEST = "";
+    private static final String ADD_FLOWER_TO_BOUQUET_REQUEST = "";
     private static Logger log = Logger.getLogger(SqliteFlowerDao.class.getName());
     /**
      * Flower table columns names
@@ -29,10 +38,6 @@ public class SqliteFlowerDao implements FlowerDao {
     private final String PETALS = "petals";
     private final String SPIKE = "price";
     private final String BOUQUET_ID = "bouquet_id";
-
-
-    private final String GET_ALL_FLOWERS = "select * from flower";
-    private final String GET_PRICES_REQUEST = "select price from flower where flower.bouquet_id = ?";
     private SqliteConnection sqliteConnection = null;
 
     public SqliteFlowerDao() {
@@ -44,7 +49,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
         ArrayList<Flower> flowers = new ArrayList<>();
 
-        try{
+        try {
             Connection connection = sqliteConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(GET_ALL_FLOWERS);
             ResultSet resultSet = statement.executeQuery();
@@ -63,7 +68,7 @@ public class SqliteFlowerDao implements FlowerDao {
                 }
             }
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
 
