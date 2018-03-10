@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.testcontainers.containers.GenericContainer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
