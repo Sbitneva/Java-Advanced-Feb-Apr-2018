@@ -1,0 +1,105 @@
+package com.flowergarden.dao.sqlite;
+
+import com.flowergarden.connection.SqliteConnection;
+import com.flowergarden.dao.FlowerDao;
+import com.flowergarden.flowers.Flower;
+import com.flowergarden.flowers.FlowersBuilder;
+import com.flowergarden.flowers.exceptions.FlowerException;
+import com.flowergarden.properties.FreshnessInteger;
+import org.apache.log4j.Logger;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class SqliteFlowerDao implements FlowerDao {
+
+    private static Logger log = Logger.getLogger(SqliteFlowerDao.class.getName());
+    /**
+     * Flower table columns names
+     */
+
+    private final String ID = "id";
+    private final String NAME = "name";
+    private final String LENGTH = "lenght";
+    private final String FRESHNESS = "freshness";
+    private final String PRICE = "price";
+    private final String PETALS = "petals";
+    private final String SPIKE = "price";
+    private final String BOUQUET_ID = "bouquet_id";
+
+
+    private final String GET_ALL_FLOWERS = "select * from flower";
+    private final String GET_PRICES_REQUEST = "select price from flower where flower.bouquet_id = ?";
+    private SqliteConnection sqliteConnection = null;
+
+    public SqliteFlowerDao() {
+        this.sqliteConnection = SqliteConnection.getSqliteConnection();
+    }
+
+    @Override
+    public ArrayList<Flower> getAllFlowers() {
+
+        ArrayList<Flower> flowers = new ArrayList<>();
+
+        try{
+            Connection connection = sqliteConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_FLOWERS);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                try {
+                    FlowersBuilder flowersBuilder = new FlowersBuilder();
+                    Flower flower = flowersBuilder.setName(resultSet.getString(NAME))
+                            .setPrice(resultSet.getFloat(PRICE))
+                            .setLength(resultSet.getInt(LENGTH))
+                            .setFreshness(new FreshnessInteger(resultSet.getInt(FRESHNESS)))
+                            .setPetals(resultSet.getInt(PETALS))
+                            .setSpike(resultSet.getBoolean(SPIKE)).buildFlower();
+                    flowers.add(flower);
+                } catch (FlowerException e) {
+                    log.error(e.getClass() + " : " + e.getMessage());
+                }
+            }
+
+        }catch (SQLException e) {
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
+
+        return flowers;
+    }
+
+    @Override
+    public ArrayList<Float> getFlowersPricesForBouquet(int bouquetIndex) {
+        ArrayList<Float> prices = new ArrayList<>();
+        try {
+            Connection connection = sqliteConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_PRICES_REQUEST);
+            statement.setInt(1, bouquetIndex);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                prices.add(resultSet.getFloat(PRICE));
+            }
+        } catch (SQLException e) {
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
+
+        return prices;
+    }
+
+    @Override
+    public void addFlower(Flower flower) {
+
+    }
+
+    @Override
+    public void deleteFlower(int flowerId) {
+
+    }
+
+    @Override
+    public void addFlowerToBouquet(Flower flower) {
+
+    }
+}

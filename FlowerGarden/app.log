@@ -1,0 +1,5 @@
+2018-03-10 10:55:31,784 | ERROR (main) [SqliteBouquetDao(getAssemblePrice:50)] class java.sql.SQLException : database connection closed
+2018-03-10 11:01:55,366 | ERROR (main) [SqliteBouquetDao(getAssemblePrice:50)] class java.sql.SQLException : database connection closed
+2018-03-10 11:01:57,831 | ERROR (main) [SqliteBouquetDao(getAssemblePrice:50)] class java.sql.SQLException : database connection closed
+2018-03-10 13:12:06,933 | ERROR (main) [SqliteFlowerDao(getFlowersPricesForBouquet:80)] class org.sqlite.SQLiteException : [SQLITE_ERROR] SQL error or missing database (no such table: flower)
+2018-03-10 13:12:06,939 | ERROR (main) [SqliteBouquetDao(getAssemblePrice:48)] class org.sqlite.SQLiteException : [SQLITE_ERROR] SQL error or missing database (no such table: bouquet)

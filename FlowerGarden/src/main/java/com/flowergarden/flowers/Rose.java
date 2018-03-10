@@ -9,7 +9,7 @@ public class Rose extends GeneralFlower {
 
     private boolean spike;
 
-    public Rose(boolean spike, int length, float price, FreshnessInteger fresh) {
+    Rose(boolean spike, int length, float price, FreshnessInteger fresh) {
         this.spike = spike;
         this.length = length;
         this.price = price;

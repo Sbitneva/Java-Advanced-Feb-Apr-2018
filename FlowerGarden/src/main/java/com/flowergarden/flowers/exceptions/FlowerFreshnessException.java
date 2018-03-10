@@ -1,12 +1,12 @@
 package com.flowergarden.flowers.exceptions;
 
-public class FlowerFreshnessException extends Exception {
+public class FlowerFreshnessException extends FlowerException {
 
-    public FlowerFreshnessException(){
+    public FlowerFreshnessException() {
         super();
     }
 
-    public FlowerFreshnessException(String message){
+    public FlowerFreshnessException(String message) {
         super(message);
     }
 }

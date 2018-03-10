@@ -6,7 +6,7 @@ public class Chamomile extends GeneralFlower {
 
     private int petals;
 
-    public Chamomile(int petals, int length, float price, FreshnessInteger fresh) {
+    Chamomile(int petals, int length, float price, FreshnessInteger fresh) {
         this.petals = petals;
         this.length = length;
         this.price = price;
@@ -19,12 +19,12 @@ public class Chamomile extends GeneralFlower {
         return true;
     }
 
-    public void setPetals(int petals) {
-        this.petals = petals;
-    }
-
     public int getPetals() {
         return petals;
+    }
+
+    public void setPetals(int petals) {
+        this.petals = petals;
     }
 
 
