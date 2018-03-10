@@ -1,0 +1,6 @@
+[fetch]
+    prune = true
+[pull]
+    rebase = true
+[alias]
+    l = log --all --oneline --decorate --graph
