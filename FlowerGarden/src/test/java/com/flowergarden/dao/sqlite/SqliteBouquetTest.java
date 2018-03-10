@@ -12,7 +12,7 @@ public class SqliteBouquetTest {
 
     @Test
     public void getAssemblePriceTest(){
-        BouquetDao bouquetDao = DaoFactory.getSqliteBouquetDao();
+        BouquetDao bouquetDao = new DaoFactory().getSqliteBouquetDao();
 
         float price = bouquetDao.getAssemblePrice(1);
 

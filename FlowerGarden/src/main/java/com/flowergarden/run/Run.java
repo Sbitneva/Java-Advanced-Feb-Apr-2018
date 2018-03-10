@@ -6,7 +6,7 @@ public class Run {
 
     public static void main(String[] args) {
 
-        GetBouquetPriceService getBouquetPriceService = GetBouquetPriceService.getBouquetPriceService();
+        GetBouquetPriceService getBouquetPriceService = new GetBouquetPriceService();
         float price = getBouquetPriceService.getPrice(1);
         System.out.println("The total price of married bouquet is :" + price);
 

@@ -5,19 +5,12 @@ import com.flowergarden.dao.sqlite.SqliteFlowerDao;
 
 public class DaoFactory {
 
-    private static SqliteBouquetDao sqliteBouquetDao = new SqliteBouquetDao();
-    private static SqliteFlowerDao sqliteFlowerDao = new SqliteFlowerDao();
-    private static DaoFactory daoFactory = new DaoFactory();
-
-    public static SqliteBouquetDao getSqliteBouquetDao() {
-        return sqliteBouquetDao;
+    public SqliteBouquetDao getSqliteBouquetDao() {
+        return new SqliteBouquetDao();
     }
 
-    public static SqliteFlowerDao getSqliteFlowerDao() {
-        return sqliteFlowerDao;
+    public SqliteFlowerDao getSqliteFlowerDao() {
+        return new SqliteFlowerDao();
     }
 
-    public static DaoFactory getDaoFactory() {
-        return daoFactory;
-    }
 }

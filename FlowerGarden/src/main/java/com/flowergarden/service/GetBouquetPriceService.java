@@ -8,22 +8,16 @@ import java.util.ArrayList;
 
 public class GetBouquetPriceService {
 
-    private static GetBouquetPriceService service = new GetBouquetPriceService();
+    private FlowerDao flowerDao = new DaoFactory().getSqliteFlowerDao();
+    private BouquetDao bouquetDao = new DaoFactory().getSqliteBouquetDao();
 
-    private GetBouquetPriceService() {
+    public GetBouquetPriceService() {
 
-    }
-
-    public static GetBouquetPriceService getBouquetPriceService() {
-        return service;
     }
 
     public float getPrice(int bouquetId) {
 
         float price = 0;
-
-        FlowerDao flowerDao = DaoFactory.getSqliteFlowerDao();
-        BouquetDao bouquetDao = DaoFactory.getSqliteBouquetDao();
 
         ArrayList<Float> flowerPrices = flowerDao.getFlowersPricesForBouquet(bouquetId);
 

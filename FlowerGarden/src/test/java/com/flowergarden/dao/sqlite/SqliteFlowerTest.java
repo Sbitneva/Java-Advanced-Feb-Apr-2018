@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class SqliteFlowerTest {
 
-    private FlowerDao flowerDao = DaoFactory.getSqliteFlowerDao();
+    private FlowerDao flowerDao = new DaoFactory().getSqliteFlowerDao();
 
     @Test
     public void getFlowersPricesForBouquetTest(){

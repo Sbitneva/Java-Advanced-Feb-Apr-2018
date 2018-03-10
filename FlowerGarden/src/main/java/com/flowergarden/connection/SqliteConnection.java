@@ -23,14 +23,13 @@ public class SqliteConnection {
         return sqliteConnection;
     }
 
-    private Connection connect() {
+    private void connect() {
 
         try {
-            connection = DriverManager.getConnection(SQLITE_URL);
+            this.connection = DriverManager.getConnection(SQLITE_URL);
         } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
-        return connection;
     }
 
     public Connection getConnection() {
