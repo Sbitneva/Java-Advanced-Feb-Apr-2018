@@ -11,5 +11,4 @@ public class Run {
         System.out.println("The total price of married bouquet is :" + price);
 
     }
-
 }

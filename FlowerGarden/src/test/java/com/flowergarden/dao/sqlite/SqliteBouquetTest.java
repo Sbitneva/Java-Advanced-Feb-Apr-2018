@@ -58,10 +58,10 @@ public class SqliteBouquetTest {
     @Test
     public void getAssemblePriceTest(){
 
-            BouquetDao bouquetDao = new DaoFactory().getSqliteBouquetDao();
+        BouquetDao bouquetDao = new DaoFactory().getSqliteBouquetDao();
 
-            float price = bouquetDao.getAssemblePrice(1);
+        float price = bouquetDao.getAssemblePrice(1);
 
-            assertTrue(price == 12.7f);
+        assertTrue(price == 12.7f);
     }
 }

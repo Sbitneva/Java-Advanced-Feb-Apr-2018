@@ -49,7 +49,6 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
         return this.getFreshness().getFreshness() - compareFresh;
     }
 
-
     @Override
     public String toString() {
         return "GeneralFlower{" +

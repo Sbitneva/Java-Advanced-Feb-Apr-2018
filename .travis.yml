@@ -8,7 +8,6 @@ cache:
   directories:
     - $HOME/.m2
 
-
 install: true
 script:
   - cd FlowerGarden
