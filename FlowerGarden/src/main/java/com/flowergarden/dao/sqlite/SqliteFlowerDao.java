@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 public class SqliteFlowerDao implements FlowerDao {
 
+    private static Logger log = Logger.getLogger(SqliteFlowerDao.class.getName());
+
     /**
      * SQL request for flower table
      */
@@ -25,19 +27,20 @@ public class SqliteFlowerDao implements FlowerDao {
     private static final String ADD_FLOWER_REQUEST = "";
     private static final String DELETE_FLOWER_REQUEST = "";
     private static final String ADD_FLOWER_TO_BOUQUET_REQUEST = "";
-    private static Logger log = Logger.getLogger(SqliteFlowerDao.class.getName());
+
     /**
      * Flower table columns names
      */
 
-    private final String ID = "id";
-    private final String NAME = "name";
-    private final String LENGTH = "lenght";
-    private final String FRESHNESS = "freshness";
-    private final String PRICE = "price";
-    private final String PETALS = "petals";
-    private final String SPIKE = "price";
-    private final String BOUQUET_ID = "bouquet_id";
+    private static final String ID = "id";
+    private static final String NAME = "name";
+    private static final String LENGTH = "lenght";
+    private static final String FRESHNESS = "freshness";
+    private static final String PRICE = "price";
+    private static final String PETALS = "petals";
+    private static final String SPIKE = "price";
+    private static final String BOUQUET_ID = "bouquet_id";
+
     private SqliteConnection sqliteConnection = null;
 
     public SqliteFlowerDao() {
@@ -93,18 +96,39 @@ public class SqliteFlowerDao implements FlowerDao {
         return prices;
     }
 
+    /**
+     * TODO: implementation flower addition
+     */
+
     @Override
     public void addFlower(Flower flower) {
 
     }
+
+    /**
+     * TODO: implementation flower deletion
+     */
 
     @Override
     public void deleteFlower(int flowerId) {
 
     }
 
+    /**
+     * TODO: implementation flower field edition for addition to bouquet
+     */
+
     @Override
     public void addFlowerToBouquet(Flower flower) {
 
+    }
+
+    /**
+     * TODO: implementation of flowers extraction for one bouquet
+     */
+
+    @Override
+    public ArrayList<Flower> getBouquetFlowers(int bouquetId) {
+        return null;
     }
 }

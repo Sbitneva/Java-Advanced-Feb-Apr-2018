@@ -1,7 +1,6 @@
 package com.flowergarden.dao;
 
 import com.flowergarden.bouquet.Bouquet;
-import com.flowergarden.flowers.Flower;
 
 import java.util.ArrayList;
 
@@ -14,5 +13,5 @@ public interface BouquetDao {
 
     ArrayList<Bouquet> getAllBouquets();
 
-    ArrayList<Flower> getBouquetFlowers(int bouquetId);
+
 }
