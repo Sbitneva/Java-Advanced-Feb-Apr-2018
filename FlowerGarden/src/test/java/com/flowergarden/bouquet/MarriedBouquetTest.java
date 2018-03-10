@@ -22,7 +22,7 @@ public class MarriedBouquetTest {
     private Tulip tulip = mock(Tulip.class);
 
     @Before
-    public void createMarriedBouquet(){
+    public void createMarriedBouquet() {
 
         marriedBouquet = new MarriedBouquet();
         marriedBouquet.addFlower(chamomile);
@@ -31,7 +31,7 @@ public class MarriedBouquetTest {
     }
 
     @Test
-    public void chamomileShouldBeFoundedByLength(){
+    public void chamomileShouldBeFoundedByLength() {
 
         when(chamomile.getLength()).thenReturn(20);
         when(rose.getLength()).thenReturn(150);
@@ -44,7 +44,7 @@ public class MarriedBouquetTest {
     }
 
     @Test
-    public void chamomileAndTulipShouldBeFoundedByLength(){
+    public void chamomileAndTulipShouldBeFoundedByLength() {
 
         when(chamomile.getLength()).thenReturn(20);
         when(rose.getLength()).thenReturn(150);
@@ -57,14 +57,14 @@ public class MarriedBouquetTest {
     }
 
     @Test
-    public void bouquetPriceShouldBe720(){
+    public void bouquetPriceShouldBe720() {
 
         when(chamomile.getPrice()).thenReturn(100f);
         when(rose.getPrice()).thenReturn(200f);
         when(tulip.getPrice()).thenReturn(300f);
 
         float price = 0;
-        for(GeneralFlower flower : marriedBouquet.getFlowers()) {
+        for (GeneralFlower flower : marriedBouquet.getFlowers()) {
             price += flower.getPrice();
         }
         price += marriedBouquet.getAssemblePrice();
@@ -73,14 +73,14 @@ public class MarriedBouquetTest {
     }
 
     @Test
-    public void bouquetPriceShouldBe(){
+    public void bouquetPriceShouldBe() {
 
         when(chamomile.getPrice()).thenReturn(100f);
         when(rose.getPrice()).thenReturn(200f);
         when(tulip.getPrice()).thenReturn(-100f);
 
         float price = 0;
-        for(GeneralFlower flower : marriedBouquet.getFlowers()) {
+        for (GeneralFlower flower : marriedBouquet.getFlowers()) {
             price += flower.getPrice();
         }
         price += marriedBouquet.getAssemblePrice();
