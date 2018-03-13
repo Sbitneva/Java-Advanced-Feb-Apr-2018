@@ -40,7 +40,7 @@ public class SqliteBouquetTest {
             when(sqliteConnection.getConnection()).thenReturn(DriverManager.getConnection("jdbc:sqlite:"));
             connection = sqliteConnection.getConnection();
             Statement statement = connection.createStatement();
-            statement.executeUpdate("restore from flowergarden.db");
+            statement.executeUpdate("restore from flowergarden.test.db");
         } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
