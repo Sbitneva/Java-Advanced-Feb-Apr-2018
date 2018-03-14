@@ -11,7 +11,7 @@ public class SqliteConnection {
 
     private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
 
-    private final String SQLITE_URL = "jdbc:sqlite:flowergarden.db";
+    private final static String SQLITE_URL = "jdbc:sqlite:flowergarden.db";
     private Connection connection = null;
 
     public SqliteConnection() {
