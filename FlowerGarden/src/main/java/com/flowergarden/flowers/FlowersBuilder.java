@@ -12,6 +12,8 @@ public class FlowersBuilder {
 
     private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
 
+    private int flowerId;
+    private int bouquetId;
     private String name;
     private int length;
     private FreshnessInteger freshness;
@@ -21,6 +23,16 @@ public class FlowersBuilder {
 
     public FlowersBuilder() {
 
+    }
+
+    public FlowersBuilder setFlowerId(int flowerId) {
+        this.flowerId = flowerId;
+        return this;
+    }
+
+    public FlowersBuilder setBouquetId(int bouquetId) {
+        this.bouquetId = bouquetId;
+        return this;
     }
 
     public FlowersBuilder setName(String name) {
@@ -67,21 +79,49 @@ public class FlowersBuilder {
     }
 
     private Chamomile createChamomile() {
+
         Chamomile chamomile = new Chamomile(this.petals, this.length, this.price, this.freshness);
+
+        chamomile.setFlowerId(this.flowerId);
+        chamomile.setBouquetId(this.bouquetId);
+
         return chamomile;
     }
 
     private Rose createRose() {
+
         Rose rose = new Rose(this.spike, this.length, this.price, this.freshness);
+
+        rose.setFlowerId(this.flowerId);
+        rose.setBouquetId(this.bouquetId);
+
         return rose;
     }
 
     private Tulip createTulip() {
+
         Tulip tulip = new Tulip();
+
         tulip.setLength(this.length);
         tulip.setFreshness(this.freshness);
         tulip.setPrice(this.price);
+        tulip.setFlowerId(this.flowerId);
+        tulip.setBouquetId(this.bouquetId);
+
         return tulip;
+    }
+
+    private GeneralFlower createGeneralFlower() {
+
+        GeneralFlower generalFlower = new GeneralFlower();
+
+        generalFlower.setBouquetId(this.bouquetId);
+        generalFlower.setFlowerId(this.flowerId);
+        generalFlower.setFreshness(this.freshness);
+        generalFlower.setLength(this.length);
+        generalFlower.setPrice(this.price);
+
+        return generalFlower;
     }
 
     public Flower buildFlower() {
@@ -93,7 +133,7 @@ public class FlowersBuilder {
             case "tulip":
                 return this.createTulip();
             default:
-                return null;
+                return this.createGeneralFlower();
         }
     }
 }

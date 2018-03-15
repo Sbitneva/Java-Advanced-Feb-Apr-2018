@@ -14,7 +14,9 @@ public interface FlowerDao {
 
     void deleteFlower(int flowerId);
 
-    void addFlowerToBouquet(Flower flower);
+    void updateFlower(Flower flower);
+
+    void addFlowerToBouquet(int flowerId, int bouquetId);
 
     ArrayList<Flower> getBouquetFlowers(int bouquetId);
 

@@ -58,12 +58,14 @@ public class SqliteFlowerDao implements FlowerDao {
             while (resultSet.next()) {
                 try {
                     FlowersBuilder flowersBuilder = new FlowersBuilder();
-                    Flower flower = flowersBuilder.setName(resultSet.getString(NAME))
+                    Flower flower = flowersBuilder.setFlowerId(resultSet.getInt(ID))
+                            .setName(resultSet.getString(NAME))
                             .setPrice(resultSet.getFloat(PRICE))
                             .setLength(resultSet.getInt(LENGTH))
                             .setFreshness(new FreshnessInteger(resultSet.getInt(FRESHNESS)))
                             .setPetals(resultSet.getInt(PETALS))
-                            .setSpike(resultSet.getBoolean(SPIKE)).buildFlower();
+                            .setSpike(resultSet.getBoolean(SPIKE))
+                            .setBouquetId(resultSet.getInt(BOUQUET_ID)).buildFlower();
                     flowers.add(flower);
                 } catch (FlowerException e) {
                     log.error(e.getClass() + " : " + e.getMessage());
@@ -117,7 +119,7 @@ public class SqliteFlowerDao implements FlowerDao {
      */
 
     @Override
-    public void addFlowerToBouquet(Flower flower) {
+    public void addFlowerToBouquet(int flowerId, int bouquetId) {
 
     }
 
@@ -128,5 +130,10 @@ public class SqliteFlowerDao implements FlowerDao {
     @Override
     public ArrayList<Flower> getBouquetFlowers(int bouquetId) {
         return null;
+    }
+
+    @Override
+    public void updateFlower(Flower flower) {
+
     }
 }

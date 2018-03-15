@@ -5,13 +5,15 @@ import com.flowergarden.bouquet.Bouquet;
 import java.util.ArrayList;
 
 public interface BouquetDao {
-    void addBouquet(String bouquetName);
+
+    void addBouquet(Bouquet bouquet);
 
     float getAssemblePrice(int bouquetId);
 
     Bouquet getBouquet(int id);
 
-    ArrayList<Bouquet> getAllBouquets();
+    void updateBouquetAssemblePrice(int bouquetId, float assemblePrice);
 
+    ArrayList<Bouquet> getAllBouquets();
 
 }
