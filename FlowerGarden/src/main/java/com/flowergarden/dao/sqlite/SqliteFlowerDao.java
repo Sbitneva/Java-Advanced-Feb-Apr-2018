@@ -26,6 +26,7 @@ public class SqliteFlowerDao implements FlowerDao {
     private static final String ADD_FLOWER_REQUEST = "INSERT INTO flower" +
             " (name, lenght, freshness, price, petals, spike, bouquet_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String ADD_FLOWER_TO_BOUQUET_REQUEST = "";
+    private static final String DELETE_FLOWER_REQUEST = "DELETE from flower where id = ?";
 
     /**
      * Flower table columns names
@@ -190,7 +191,14 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public void deleteFlower(int flowerId) {
-
+        try {
+            Connection connection = sqliteConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(DELETE_FLOWER_REQUEST);
+            statement.setInt(1, flowerId);
+            statement.execute();
+        } catch (SQLException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
     }
 
     /**

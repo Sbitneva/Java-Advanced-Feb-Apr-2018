@@ -78,7 +78,6 @@ public class SqliteFlowerTest {
 
     @Test
     public void allTypesOfFlowersShouldBeAdded(){
-
         try {
             Flower chamomile = new FlowersBuilder().setName("chamomile")
                     .setLength(5)
@@ -121,4 +120,31 @@ public class SqliteFlowerTest {
             log.error(e.getClass() + " : " + e.getMessage());
         }
     }
+
+    @Test
+    public void deleteFlowerTest(){
+        try {
+            Flower tulip = new FlowersBuilder().setName("tulip")
+                    .setLength(5)
+                    .setFreshness(new FreshnessInteger(2))
+                    .setPrice(12.5f)
+                    .setBouquetId(0).buildFlower();
+
+            int flowersAmountBefore = flowerDao.getAllFlowers().size();
+
+            flowerDao.addFlower(tulip);
+
+            int flowerAmountAfterAddition = flowerDao.getAllFlowers().size();
+
+            assertEquals(flowersAmountBefore + 1, flowerAmountAfterAddition);
+
+            flowerDao.deleteFlower(flowerAmountAfterAddition);
+
+            assertEquals(flowersAmountBefore, flowerDao.getAllFlowers().size());
+
+        } catch (FlowerException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
+    }
+
 }
