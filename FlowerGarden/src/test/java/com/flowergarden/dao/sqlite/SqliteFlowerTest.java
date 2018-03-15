@@ -161,4 +161,10 @@ public class SqliteFlowerTest {
         flowerDao.addFlowerToBouquet(flowerId, bouquetIdBefore);
     }
 
+    @Test
+    public void getBouquetFlowersTest(){
+        ArrayList<Flower> flowers = flowerDao.getBouquetFlowers(1);
+        assertEquals(flowers.size(), 6);
+    }
+
 }

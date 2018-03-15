@@ -234,6 +234,24 @@ public class SqliteFlowerDao implements FlowerDao {
 
             ResultSet resultSet = statement.executeQuery();
 
+            while(resultSet.next()) {
+                try {
+                    Flower flower = new FlowersBuilder().setFlowerId(resultSet.getInt(ID))
+                            .setLength(resultSet.getInt(LENGTH))
+                            .setFreshness(new FreshnessInteger(resultSet.getInt(FRESHNESS)))
+                            .setPrice(resultSet.getFloat(PRICE))
+                            .setName(resultSet.getString(NAME))
+                            .setPetals(resultSet.getInt(PETALS))
+                            .setSpike(resultSet.getBoolean(SPIKE))
+                            .setBouquetId(resultSet.getInt(BOUQUET_ID)).buildFlower();
+
+                    flowers.add(flower);
+
+                } catch (FlowerException fe){
+                    log.error(fe.getClass() + " : " + fe.getMessage());
+                }
+            }
+
         } catch (SQLException e){
             log.error(e.getClass() + " : " + e.getMessage());
         }
