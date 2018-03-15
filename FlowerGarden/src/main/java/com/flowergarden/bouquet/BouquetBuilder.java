@@ -16,15 +16,20 @@ public class BouquetBuilder {
         return this;
     }
 
-    public Bouquet getBouquet(String typeName) {
+    public BouquetBuilder setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Bouquet getBouquet() {
         Bouquet bouquet = null;
-        switch(typeName){
+        switch(this.name){
             case "married" :
                 bouquet =  new MarriedBouquet();
                 break;
             default:
                 bouquet = new CommonBouquet();
-                ((CommonBouquet) bouquet).setName(typeName);
+                ((CommonBouquet) bouquet).setName(this.name);
 
         }
         bouquet.setId(this.id);

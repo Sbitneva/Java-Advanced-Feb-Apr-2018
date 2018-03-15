@@ -16,4 +16,5 @@ public interface BouquetDao {
 
     ArrayList<Bouquet> getAllBouquets();
 
+    void deleteBouquet(int id);
 }

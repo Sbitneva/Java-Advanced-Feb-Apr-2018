@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 public class SqliteBouquetDao implements BouquetDao {
 
+    private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
+
     /**
      * SQL request for bouquet table
      */
@@ -24,7 +26,8 @@ public class SqliteBouquetDao implements BouquetDao {
     private static final String GET_ASSEMBLE_PRICE_REQUEST = "select assemble_price from bouquet where bouquet.id = ?";
     private static final String GET_BOUQUET_REQUEST = "SELECT * FROM bouquet where id = ?";
     private static final String GET_ALL_BOUQUETS = "SELECT * from bouquet";
-    private static final String GET_ALL_BOUQUET_FLOWERS = "";
+    private static final String UPDATE_ASSEMBLE_PRICE = "UPDATE bouquet SET assemble_price = ? where id = ?";
+    private static final String DELETE_BOUQUET = "DELETE from bouquet where id = ?";
     /**
      * Flower table columns names
      */
@@ -32,7 +35,7 @@ public class SqliteBouquetDao implements BouquetDao {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String ASSEMBLE_PRICE = "assemble_price";
-    private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
+
     private SqliteConnection sqliteConnection = null;
 
     public SqliteBouquetDao() {
@@ -44,7 +47,7 @@ public class SqliteBouquetDao implements BouquetDao {
 
         try (Connection connection = sqliteConnection.getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement(GET_ASSEMBLE_PRICE_REQUEST);
+            PreparedStatement statement = connection.prepareStatement(ADD_BOUQUET_REQUEST);
 
             if (bouquet.getClass().isInstance(MarriedBouquet.class)) {
                 statement.setString(1, "married");
@@ -88,6 +91,7 @@ public class SqliteBouquetDao implements BouquetDao {
     public Bouquet getBouquet(int id) {
 
         try (Connection connection = sqliteConnection.getConnection()) {
+
             PreparedStatement statement = connection.prepareStatement(GET_BOUQUET_REQUEST);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -95,7 +99,8 @@ public class SqliteBouquetDao implements BouquetDao {
             if (resultSet.next()) {
                 return new BouquetBuilder().setId(resultSet.getInt(ID))
                         .setAssemblePrice(resultSet.getFloat(ASSEMBLE_PRICE))
-                        .getBouquet(resultSet.getString(NAME));
+                        .setName(resultSet.getString(NAME)).getBouquet();
+
             }
         } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
@@ -113,13 +118,14 @@ public class SqliteBouquetDao implements BouquetDao {
         ArrayList<Bouquet> bouquets = new ArrayList<>();
 
         try (Connection connection = sqliteConnection.getConnection()) {
+
             PreparedStatement statement = connection.prepareStatement(GET_ALL_BOUQUETS);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 Bouquet bouquet = new BouquetBuilder().setId(resultSet.getInt(ID))
                         .setAssemblePrice(resultSet.getFloat(ASSEMBLE_PRICE))
-                        .getBouquet(resultSet.getString(NAME));
+                        .setName(resultSet.getString(NAME)).getBouquet();
                 bouquets.add(bouquet);
             }
 
@@ -132,5 +138,29 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public void updateBouquetAssemblePrice(int bouquetId, float assemblePrice) {
 
+        try (Connection connection = sqliteConnection.getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement(UPDATE_ASSEMBLE_PRICE);
+            statement.setFloat(1, assemblePrice);
+            statement.setInt(2, bouquetId);
+
+            statement.executeUpdate();
+
+        }catch (SQLException e) {
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteBouquet(int id) {
+
+        try (Connection connection = sqliteConnection.getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement(DELETE_BOUQUET);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
     }
 }
