@@ -2,8 +2,7 @@ package com.flowergarden.dao.sqlite;
 
 import com.flowergarden.connection.SqliteConnection;
 import com.flowergarden.dao.FlowerDao;
-import com.flowergarden.flowers.Flower;
-import com.flowergarden.flowers.FlowersBuilder;
+import com.flowergarden.flowers.*;
 import com.flowergarden.flowers.exceptions.FlowerException;
 import com.flowergarden.properties.FreshnessInteger;
 import org.apache.log4j.Logger;
@@ -41,10 +40,9 @@ public class SqliteFlowerDao implements FlowerDao {
     private static final String SPIKE = "price";
     private static final String BOUQUET_ID = "bouquet_id";
 
-    private SqliteConnection sqliteConnection = null;
+    private SqliteConnection sqliteConnection = SqliteConnection.getSqliteConnection();
 
     public SqliteFlowerDao() {
-        this.sqliteConnection = new SqliteConnection();
     }
 
     @Override
@@ -96,13 +94,37 @@ public class SqliteFlowerDao implements FlowerDao {
         return prices;
     }
 
+    private void addChamomile(){
+
+    }
+
+    private void addRose(){
+
+    }
+
+    private void addTulip(){
+
+    }
+
+    private void addGeneralFlower(){
+
+    }
+
     /**
      * TODO: implementation flower addition
      */
 
     @Override
     public void addFlower(Flower flower) {
+        if(flower instanceof Chamomile){
 
+        } else if(flower instanceof Rose){
+
+        } else if(flower instanceof Tulip) {
+
+        } else if(flower instanceof GeneralFlower){
+
+        }
     }
 
     /**

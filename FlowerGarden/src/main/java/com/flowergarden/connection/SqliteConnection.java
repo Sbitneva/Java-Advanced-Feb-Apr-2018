@@ -14,10 +14,11 @@ public class SqliteConnection {
     private final static String SQLITE_URL = "jdbc:sqlite:flowergarden.db";
     private Connection connection = null;
 
-    public SqliteConnection() {
+    private SqliteConnection() {
         this.connect();
     }
 
+    private static SqliteConnection sqliteConnection = new SqliteConnection();
 
     private void connect() {
         try {
@@ -27,7 +28,11 @@ public class SqliteConnection {
         }
     }
 
-    public Connection getConnection() {
+    public static SqliteConnection getSqliteConnection() {
+        return sqliteConnection;
+    }
+
+    public  Connection getConnection() {
         return connection;
     }
 

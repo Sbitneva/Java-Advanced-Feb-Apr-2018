@@ -36,16 +36,17 @@ public class SqliteBouquetDao implements BouquetDao {
     private static final String NAME = "name";
     private static final String ASSEMBLE_PRICE = "assemble_price";
 
-    private SqliteConnection sqliteConnection = null;
+    private SqliteConnection sqliteConnection = SqliteConnection.getSqliteConnection();
 
     public SqliteBouquetDao() {
-        this.sqliteConnection = new SqliteConnection();
+
     }
 
     @Override
     public void addBouquet(Bouquet bouquet) {
 
-        try (Connection connection = sqliteConnection.getConnection()) {
+        try {
+            Connection connection = sqliteConnection.getConnection();
 
             PreparedStatement statement = connection.prepareStatement(ADD_BOUQUET_REQUEST);
 
@@ -67,7 +68,8 @@ public class SqliteBouquetDao implements BouquetDao {
 
         float assemblePrice = 0f;
 
-        try (Connection connection = sqliteConnection.getConnection()) {
+        try{
+            Connection connection = sqliteConnection.getConnection();
 
             PreparedStatement statement = connection.prepareStatement(GET_ASSEMBLE_PRICE_REQUEST);
             statement.setInt(1, bouquetId);
@@ -90,7 +92,8 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public Bouquet getBouquet(int id) {
 
-        try (Connection connection = sqliteConnection.getConnection()) {
+        try {
+            Connection connection = sqliteConnection.getConnection();
 
             PreparedStatement statement = connection.prepareStatement(GET_BOUQUET_REQUEST);
             statement.setInt(1, id);
@@ -117,7 +120,8 @@ public class SqliteBouquetDao implements BouquetDao {
 
         ArrayList<Bouquet> bouquets = new ArrayList<>();
 
-        try (Connection connection = sqliteConnection.getConnection()) {
+        try {
+            Connection connection = sqliteConnection.getConnection();
 
             PreparedStatement statement = connection.prepareStatement(GET_ALL_BOUQUETS);
             ResultSet resultSet = statement.executeQuery();
@@ -138,7 +142,8 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public void updateBouquetAssemblePrice(int bouquetId, float assemblePrice) {
 
-        try (Connection connection = sqliteConnection.getConnection()) {
+        try {
+            Connection connection = sqliteConnection.getConnection();
 
             PreparedStatement statement = connection.prepareStatement(UPDATE_ASSEMBLE_PRICE);
             statement.setFloat(1, assemblePrice);
@@ -154,7 +159,8 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public void deleteBouquet(int id) {
 
-        try (Connection connection = sqliteConnection.getConnection()) {
+        try {
+            Connection connection = sqliteConnection.getConnection();
 
             PreparedStatement statement = connection.prepareStatement(DELETE_BOUQUET);
             statement.setInt(1, id);
