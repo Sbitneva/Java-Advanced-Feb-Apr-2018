@@ -23,8 +23,8 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private static final String GET_ALL_FLOWERS = "select * from flower";
     private static final String GET_PRICES_REQUEST = "select price from flower where flower.bouquet_id = ?";
-    private static final String ADD_FLOWER_REQUEST = "";
-    private static final String DELETE_FLOWER_REQUEST = "";
+    private static final String ADD_FLOWER_REQUEST = "INSERT INTO flower" +
+            " (name, lenght, freshness, price, petals, spike, bouquet_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String ADD_FLOWER_TO_BOUQUET_REQUEST = "";
 
     /**
@@ -50,7 +50,8 @@ public class SqliteFlowerDao implements FlowerDao {
 
         ArrayList<Flower> flowers = new ArrayList<>();
 
-        try (Connection connection = sqliteConnection.getConnection()){
+        try {
+            Connection connection = sqliteConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(GET_ALL_FLOWERS);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -69,7 +70,6 @@ public class SqliteFlowerDao implements FlowerDao {
                     log.error(e.getClass() + " : " + e.getMessage());
                 }
             }
-
         } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
@@ -79,8 +79,11 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public ArrayList<Float> getFlowersPricesForBouquet(int bouquetIndex) {
+
         ArrayList<Float> prices = new ArrayList<>();
-        try (Connection connection = sqliteConnection.getConnection()) {
+
+        try{
+            Connection connection = sqliteConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(GET_PRICES_REQUEST);
             statement.setInt(1, bouquetIndex);
             ResultSet resultSet = statement.executeQuery();
@@ -94,20 +97,74 @@ public class SqliteFlowerDao implements FlowerDao {
         return prices;
     }
 
-    private void addChamomile(){
+    private void addChamomile(Flower flower){
+        Chamomile chamomile = (Chamomile)flower;
+        try {
+            Connection connection = sqliteConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
+            statement.setString(1, "chamomile");
+            statement.setInt(2, chamomile.getLength());
+            statement.setInt(3, (chamomile.getFreshness()).getFreshness());
+            statement.setFloat(4, chamomile.getPrice());
+            statement.setInt(5, chamomile.getPetals());
+            statement.setNull(6, 0);
+            statement.setInt(7, chamomile.getBouquetId());
+            statement.execute();
+        } catch (SQLException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void addRose(Flower flower){
+        Rose rose = (Rose)flower;
+        try {
+            Connection connection = sqliteConnection.getConnection();
+
+            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
+            statement.setString(1, "rose");
+            statement.setInt(2, rose.getLength());
+            statement.setInt(3, (rose.getFreshness()).getFreshness());
+            statement.setFloat(4, rose.getPrice());
+            statement.setBoolean(6, rose.getSpike());
+            statement.setInt(7, rose.getBouquetId());
+            statement.execute();
+        } catch (SQLException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
+    }
+
+    private void addTulip(Flower flower){
+        Tulip tulip = (Tulip)flower;
+        try {
+            Connection connection = sqliteConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
+            statement.setString(1, "tulip");
+            statement.setInt(2, tulip.getLength());
+            statement.setInt(3, (tulip.getFreshness()).getFreshness());
+            statement.setFloat(4, tulip.getPrice());
+            statement.setInt(7, tulip.getBouquetId());
+            statement.execute();
+        } catch (SQLException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
 
     }
 
-    private void addRose(){
-
-    }
-
-    private void addTulip(){
-
-    }
-
-    private void addGeneralFlower(){
-
+    private void addGeneralFlower(Flower flower){
+        GeneralFlower tulip = (GeneralFlower) flower;
+        try {
+            Connection connection = sqliteConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
+            statement.setString(1, "general flower");
+            statement.setInt(2, tulip.getLength());
+            statement.setInt(3, (tulip.getFreshness()).getFreshness());
+            statement.setFloat(4, tulip.getPrice());
+            statement.setInt(7, tulip.getBouquetId());
+            statement.execute();
+        } catch (SQLException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
     }
 
     /**
@@ -117,13 +174,13 @@ public class SqliteFlowerDao implements FlowerDao {
     @Override
     public void addFlower(Flower flower) {
         if(flower instanceof Chamomile){
-
+            addChamomile(flower);
         } else if(flower instanceof Rose){
-
+            addRose(flower);
         } else if(flower instanceof Tulip) {
-
+            addTulip(flower);
         } else if(flower instanceof GeneralFlower){
-
+            addGeneralFlower(flower);
         }
     }
 

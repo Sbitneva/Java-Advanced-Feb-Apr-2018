@@ -3,9 +3,14 @@ package com.flowergarden.dao.sqlite;
 import com.flowergarden.connection.SqliteConnection;
 import com.flowergarden.dao.DaoFactory;
 import com.flowergarden.dao.FlowerDao;
+import com.flowergarden.flowers.Chamomile;
 import com.flowergarden.flowers.Flower;
+import com.flowergarden.flowers.FlowersBuilder;
+import com.flowergarden.flowers.exceptions.FlowerException;
+import com.flowergarden.properties.FreshnessInteger;
 import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +41,8 @@ public class SqliteFlowerTest {
 
     Connection connection;
 
+    private FlowerDao flowerDao = new DaoFactory().getSqliteFlowerDao();
+
     @Before
     public void init(){
         try{
@@ -48,17 +55,14 @@ public class SqliteFlowerTest {
         }
     }
 
-    @After
-    public void after(){
+    /*@AfterClass
+    public static void after(){
         try {
-            connection.close();
+            SqliteConnection.getSqliteConnection().getConnection().close();
         } catch (SQLException e){
             log.error(e.getClass() + " : " + e.getMessage());
         }
-    }
-
-
-    private FlowerDao flowerDao = new DaoFactory().getSqliteFlowerDao();
+    }*/
 
     @Test
     public void getFlowersPricesForBouquetTest(){
@@ -73,8 +77,48 @@ public class SqliteFlowerTest {
     }
 
     @Test
-    public void getAllFlowersTest(){
-        ArrayList<Flower> flowers = flowerDao.getAllFlowers();
-        assertEquals(6, flowers.size());
+    public void allTypesOfFlowersShouldBeAdded(){
+
+        try {
+            Flower chamomile = new FlowersBuilder().setName("chamomile")
+                    .setLength(5)
+                    .setFreshness(new FreshnessInteger(2))
+                    .setPrice(12.5f)
+                    .setPetals(20)
+                    .setBouquetId(0).buildFlower();
+
+            Flower rose = new FlowersBuilder().setName("rose")
+                    .setLength(5)
+                    .setFreshness(new FreshnessInteger(2))
+                    .setPrice(12.5f)
+                    .setSpike(true)
+                    .setBouquetId(0).buildFlower();
+
+            Flower tulip = new FlowersBuilder().setName("tulip")
+                    .setLength(5)
+                    .setFreshness(new FreshnessInteger(2))
+                    .setPrice(12.5f)
+                    .setBouquetId(0).buildFlower();
+
+            Flower generalFlower = new FlowersBuilder().setName("lily")
+                    .setLength(5)
+                    .setFreshness(new FreshnessInteger(2))
+                    .setPrice(12.5f)
+                    .setBouquetId(0).buildFlower();
+
+            int flowersAmountBefore = flowerDao.getAllFlowers().size();
+
+            flowerDao.addFlower(chamomile);
+            flowerDao.addFlower(rose);
+            flowerDao.addFlower(tulip);
+            flowerDao.addFlower(generalFlower);
+
+            int flowersAmountAfter = flowerDao.getAllFlowers().size();
+
+            assertEquals(flowersAmountBefore + 4, flowersAmountAfter);
+
+        } catch (FlowerException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
     }
 }

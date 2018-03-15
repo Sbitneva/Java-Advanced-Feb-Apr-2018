@@ -22,7 +22,7 @@ public class SqliteBouquetDao implements BouquetDao {
      * SQL request for bouquet table
      */
 
-    private static final String ADD_BOUQUET_REQUEST = "INSERT INTO bouquet  (name, assemble_price) VALUES(?, ?)";
+    private static final String ADD_BOUQUET_REQUEST = "INSERT INTO bouquet (name, assemble_price) VALUES(?, ?)";
     private static final String GET_ASSEMBLE_PRICE_REQUEST = "select assemble_price from bouquet where bouquet.id = ?";
     private static final String GET_BOUQUET_REQUEST = "SELECT * FROM bouquet where id = ?";
     private static final String GET_ALL_BOUQUETS = "SELECT * from bouquet";

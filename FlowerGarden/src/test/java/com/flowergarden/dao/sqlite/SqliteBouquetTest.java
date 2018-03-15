@@ -48,6 +48,7 @@ public class SqliteBouquetTest {
         }
     }
 
+    /*
     @AfterClass
     public static void after(){
         try {
@@ -56,8 +57,7 @@ public class SqliteBouquetTest {
             log.error(e.getClass() + " : " + e.getMessage());
         }
     }
-
-
+    */
 
     @Test
     public void getAssemblePriceTest(){
