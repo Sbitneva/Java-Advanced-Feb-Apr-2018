@@ -45,6 +45,4 @@ public class GetBouquetPriceServiceTest {
 
         assertTrue(expectedPrice == realPrice);
     }
-
-
 }

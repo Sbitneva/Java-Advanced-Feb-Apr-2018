@@ -25,8 +25,9 @@ public class SqliteFlowerDao implements FlowerDao {
     private static final String GET_PRICES_REQUEST = "select price from flower where flower.bouquet_id = ?";
     private static final String ADD_FLOWER_REQUEST = "INSERT INTO flower" +
             " (name, lenght, freshness, price, petals, spike, bouquet_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String ADD_FLOWER_TO_BOUQUET_REQUEST = "";
+    private static final String ADD_FLOWER_TO_BOUQUET_REQUEST = "UPDATE flower SET bouquet_id = ? where id = ?";
     private static final String DELETE_FLOWER_REQUEST = "DELETE from flower where id = ?";
+    private static final String GET_BOUQUETS_FLOWERS = "select * from flower where bouquet_id = ?";
 
     /**
      * Flower table columns names
@@ -207,7 +208,15 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public void addFlowerToBouquet(int flowerId, int bouquetId) {
-
+        try {
+            Connection connection = sqliteConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_TO_BOUQUET_REQUEST);
+            statement.setInt(1, bouquetId);
+            statement.setInt(2, flowerId);
+            statement.executeUpdate();
+        } catch (SQLException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
     }
 
     /**
@@ -216,7 +225,20 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public ArrayList<Flower> getBouquetFlowers(int bouquetId) {
-        return null;
+
+        ArrayList<Flower> flowers = new ArrayList<>();
+        try {
+            Connection connection = sqliteConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_BOUQUETS_FLOWERS);
+            statement.setInt(1, bouquetId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+        } catch (SQLException e){
+            log.error(e.getClass() + " : " + e.getMessage());
+        }
+
+        return flowers;
     }
 
     @Override

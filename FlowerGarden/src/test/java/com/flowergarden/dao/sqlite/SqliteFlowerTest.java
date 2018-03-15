@@ -6,6 +6,7 @@ import com.flowergarden.dao.FlowerDao;
 import com.flowergarden.flowers.Chamomile;
 import com.flowergarden.flowers.Flower;
 import com.flowergarden.flowers.FlowersBuilder;
+import com.flowergarden.flowers.GeneralFlower;
 import com.flowergarden.flowers.exceptions.FlowerException;
 import com.flowergarden.properties.FreshnessInteger;
 import org.apache.log4j.Logger;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -145,6 +147,18 @@ public class SqliteFlowerTest {
         } catch (FlowerException e){
             log.error(e.getClass() + " : " + e.getMessage());
         }
+    }
+
+    @Test
+    public void addFlowerToBouquetTest(){
+
+        ArrayList<Flower> flowers = flowerDao.getAllFlowers();
+        Flower flower = flowers.get(2);
+        int flowerId = ((GeneralFlower) flower).getFlowerId();
+        int bouquetIdBefore = ((GeneralFlower)flower).getBouquetId();
+        flowerDao.addFlowerToBouquet(flowerId, 0);
+        assertNotEquals(bouquetIdBefore, 0);
+        flowerDao.addFlowerToBouquet(flowerId, bouquetIdBefore);
     }
 
 }
