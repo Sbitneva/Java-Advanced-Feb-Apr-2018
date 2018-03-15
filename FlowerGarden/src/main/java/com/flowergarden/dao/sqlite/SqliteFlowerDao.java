@@ -170,7 +170,7 @@ public class SqliteFlowerDao implements FlowerDao {
     }
 
     /**
-     * TODO: implementation flower addition
+     * flower addition
      */
 
     @Override
@@ -203,7 +203,7 @@ public class SqliteFlowerDao implements FlowerDao {
     }
 
     /**
-     * TODO: implementation flower field edition for addition to bouquet
+     * flower field edition for addition to bouquet
      */
 
     @Override
@@ -220,7 +220,7 @@ public class SqliteFlowerDao implements FlowerDao {
     }
 
     /**
-     * TODO: implementation of flowers extraction for one bouquet
+     * flowers extraction for one bouquet
      */
 
     @Override
