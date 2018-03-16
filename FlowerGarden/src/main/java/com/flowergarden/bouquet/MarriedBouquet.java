@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MarriedBouquet implements Bouquet<GeneralFlower> {
 
+    private int id;
+
     private float assemblePrice = 120;
 
     private List<GeneralFlower> flowerList = new ArrayList<>();
@@ -53,5 +55,15 @@ public class MarriedBouquet implements Bouquet<GeneralFlower> {
 
     public void setAssemblePrice(float price) {
         assemblePrice = price;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 }

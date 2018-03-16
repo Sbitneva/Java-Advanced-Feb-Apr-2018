@@ -3,7 +3,14 @@ package com.flowergarden.bouquet;
 import java.util.Collection;
 
 public interface Bouquet<T> {
+
+    int getId();
+
+    void setId(int id);
+
     float getPrice();
+
+    void setAssemblePrice(float assemblePrice);
 
     void addFlower(T flower);
 

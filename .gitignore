@@ -6,3 +6,4 @@ checkstyle-*
 *.iml
 *.log*
 *.dat
+*.db-journal
