@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class SqliteBouquetDao implements BouquetDao {
 
-    private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
-
     /**
      * SQL request for bouquet table
      */
@@ -35,6 +33,7 @@ public class SqliteBouquetDao implements BouquetDao {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String ASSEMBLE_PRICE = "assemble_price";
+    private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
 
     private SqliteConnection sqliteConnection = SqliteConnection.getSqliteConnection();
 
@@ -68,7 +67,7 @@ public class SqliteBouquetDao implements BouquetDao {
 
         float assemblePrice = 0f;
 
-        try{
+        try {
             Connection connection = sqliteConnection.getConnection();
 
             PreparedStatement statement = connection.prepareStatement(GET_ASSEMBLE_PRICE_REQUEST);
@@ -86,7 +85,7 @@ public class SqliteBouquetDao implements BouquetDao {
     }
 
     /**
-     * TODO: implementation of bouquet extraction
+     * bouquet extraction
      */
 
     @Override
@@ -112,7 +111,7 @@ public class SqliteBouquetDao implements BouquetDao {
     }
 
     /**
-     * TODO: implementation of all bouquets extraction
+     * all bouquets extraction
      */
 
     @Override
@@ -151,7 +150,7 @@ public class SqliteBouquetDao implements BouquetDao {
 
             statement.executeUpdate();
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
     }

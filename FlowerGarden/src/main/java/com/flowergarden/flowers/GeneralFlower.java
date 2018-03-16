@@ -15,6 +15,10 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
     @XmlElement
     int length;
 
+    GeneralFlower() {
+
+    }
+
     public int getFlowerId() {
         return flowerId;
     }
@@ -29,10 +33,6 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
 
     public void setBouquetId(int bouquetId) {
         this.bouquetId = bouquetId;
-    }
-
-    GeneralFlower() {
-
     }
 
     @Override

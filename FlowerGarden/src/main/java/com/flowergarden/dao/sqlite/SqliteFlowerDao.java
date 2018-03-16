@@ -15,8 +15,6 @@ import java.util.ArrayList;
 
 public class SqliteFlowerDao implements FlowerDao {
 
-    private static Logger log = Logger.getLogger(SqliteFlowerDao.class.getName());
-
     /**
      * SQL request for flower table
      */
@@ -28,7 +26,8 @@ public class SqliteFlowerDao implements FlowerDao {
     private static final String ADD_FLOWER_TO_BOUQUET_REQUEST = "UPDATE flower SET bouquet_id = ? where id = ?";
     private static final String DELETE_FLOWER_REQUEST = "DELETE from flower where id = ?";
     private static final String GET_BOUQUETS_FLOWERS = "select * from flower where bouquet_id = ?";
-
+    private static final String UPDATE_FLOWER_REQUEST = "update flower SET" +
+            " lenght = ?, freshness = ?, price = ?, petals =  ?, spike = ?, bouquet_id = ? where id = ?";
     /**
      * Flower table columns names
      */
@@ -41,6 +40,7 @@ public class SqliteFlowerDao implements FlowerDao {
     private static final String PETALS = "petals";
     private static final String SPIKE = "price";
     private static final String BOUQUET_ID = "bouquet_id";
+    private static Logger log = Logger.getLogger(SqliteFlowerDao.class.getName());
 
     private SqliteConnection sqliteConnection = SqliteConnection.getSqliteConnection();
 
@@ -84,7 +84,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
         ArrayList<Float> prices = new ArrayList<>();
 
-        try{
+        try {
             Connection connection = sqliteConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(GET_PRICES_REQUEST);
             statement.setInt(1, bouquetIndex);
@@ -99,8 +99,8 @@ public class SqliteFlowerDao implements FlowerDao {
         return prices;
     }
 
-    private void addChamomile(Flower flower){
-        Chamomile chamomile = (Chamomile)flower;
+    private void addChamomile(Flower flower) {
+        Chamomile chamomile = (Chamomile) flower;
         try {
             Connection connection = sqliteConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
@@ -112,14 +112,14 @@ public class SqliteFlowerDao implements FlowerDao {
             statement.setNull(6, 0);
             statement.setInt(7, chamomile.getBouquetId());
             statement.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private void addRose(Flower flower){
-        Rose rose = (Rose)flower;
+    private void addRose(Flower flower) {
+        Rose rose = (Rose) flower;
         try {
             Connection connection = sqliteConnection.getConnection();
 
@@ -131,13 +131,13 @@ public class SqliteFlowerDao implements FlowerDao {
             statement.setBoolean(6, rose.getSpike());
             statement.setInt(7, rose.getBouquetId());
             statement.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
     }
 
-    private void addTulip(Flower flower){
-        Tulip tulip = (Tulip)flower;
+    private void addTulip(Flower flower) {
+        Tulip tulip = (Tulip) flower;
         try {
             Connection connection = sqliteConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
@@ -147,13 +147,13 @@ public class SqliteFlowerDao implements FlowerDao {
             statement.setFloat(4, tulip.getPrice());
             statement.setInt(7, tulip.getBouquetId());
             statement.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
 
     }
 
-    private void addGeneralFlower(Flower flower){
+    private void addGeneralFlower(Flower flower) {
         GeneralFlower tulip = (GeneralFlower) flower;
         try {
             Connection connection = sqliteConnection.getConnection();
@@ -164,7 +164,7 @@ public class SqliteFlowerDao implements FlowerDao {
             statement.setFloat(4, tulip.getPrice());
             statement.setInt(7, tulip.getBouquetId());
             statement.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
     }
@@ -175,13 +175,13 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public void addFlower(Flower flower) {
-        if(flower instanceof Chamomile){
+        if (flower instanceof Chamomile) {
             addChamomile(flower);
-        } else if(flower instanceof Rose){
+        } else if (flower instanceof Rose) {
             addRose(flower);
-        } else if(flower instanceof Tulip) {
+        } else if (flower instanceof Tulip) {
             addTulip(flower);
-        } else if(flower instanceof GeneralFlower){
+        } else if (flower instanceof GeneralFlower) {
             addGeneralFlower(flower);
         }
     }
@@ -197,7 +197,7 @@ public class SqliteFlowerDao implements FlowerDao {
             PreparedStatement statement = connection.prepareStatement(DELETE_FLOWER_REQUEST);
             statement.setInt(1, flowerId);
             statement.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
     }
@@ -214,7 +214,7 @@ public class SqliteFlowerDao implements FlowerDao {
             statement.setInt(1, bouquetId);
             statement.setInt(2, flowerId);
             statement.executeUpdate();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
     }
@@ -234,7 +234,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
             ResultSet resultSet = statement.executeQuery();
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 try {
                     Flower flower = new FlowersBuilder().setFlowerId(resultSet.getInt(ID))
                             .setLength(resultSet.getInt(LENGTH))
@@ -247,12 +247,12 @@ public class SqliteFlowerDao implements FlowerDao {
 
                     flowers.add(flower);
 
-                } catch (FlowerException fe){
+                } catch (FlowerException fe) {
                     log.error(fe.getClass() + " : " + fe.getMessage());
                 }
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
 
@@ -262,5 +262,32 @@ public class SqliteFlowerDao implements FlowerDao {
     @Override
     public void updateFlower(Flower flower) {
 
+        if (((GeneralFlower) flower).getFlowerId() > 0) {
+
+            try {
+                Connection connection = sqliteConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(UPDATE_FLOWER_REQUEST);
+
+                statement.setInt(1, flower.getLength());
+                statement.setInt(2, ((GeneralFlower) flower).getFreshness().getFreshness());
+                statement.setFloat(3, flower.getPrice());
+                statement.setInt(6, ((GeneralFlower) flower).getBouquetId());
+                statement.setInt(7, ((GeneralFlower) flower).getFlowerId());
+                if (flower instanceof Rose) {
+                    statement.setObject(4, null);
+                    statement.setBoolean(5, ((Rose) flower).getSpike());
+                } else if (flower instanceof Chamomile) {
+                    statement.setInt(4, ((Chamomile) flower).getPetals());
+                    statement.setObject(5, null);
+                } else {
+                    statement.setObject(4, null);
+                    statement.setObject(5, null);
+                }
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                log.error(e.getClass() + " : " + e.getMessage());
+            }
+
+        }
     }
 }

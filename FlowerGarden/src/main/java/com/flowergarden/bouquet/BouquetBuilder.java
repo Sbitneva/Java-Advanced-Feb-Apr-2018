@@ -23,9 +23,9 @@ public class BouquetBuilder {
 
     public Bouquet getBouquet() {
         Bouquet bouquet = null;
-        switch(this.name){
-            case "married" :
-                bouquet =  new MarriedBouquet();
+        switch (this.name) {
+            case "married":
+                bouquet = new MarriedBouquet();
                 break;
             default:
                 bouquet = new CommonBouquet();
