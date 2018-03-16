@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower> {
 
+    int flowerId;
+    int bouquetId;
+
     FreshnessInteger freshness;
     @XmlElement
     float price;
@@ -14,6 +17,22 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
 
     GeneralFlower() {
 
+    }
+
+    public int getFlowerId() {
+        return flowerId;
+    }
+
+    public void setFlowerId(int flowerId) {
+        this.flowerId = flowerId;
+    }
+
+    public int getBouquetId() {
+        return bouquetId;
+    }
+
+    public void setBouquetId(int bouquetId) {
+        this.bouquetId = bouquetId;
     }
 
     @Override
