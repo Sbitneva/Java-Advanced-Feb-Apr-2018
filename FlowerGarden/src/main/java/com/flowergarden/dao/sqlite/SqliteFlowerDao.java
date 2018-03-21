@@ -1,6 +1,5 @@
 package com.flowergarden.dao.sqlite;
 
-import com.flowergarden.connection.SqliteConnection;
 import com.flowergarden.dao.FlowerDao;
 import com.flowergarden.flowers.*;
 import com.flowergarden.flowers.exceptions.FlowerException;
@@ -8,10 +7,7 @@ import com.flowergarden.properties.FreshnessInteger;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -59,7 +55,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
         ArrayList<Flower> flowers = new ArrayList<>();
 
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_FLOWERS);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -90,7 +86,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
         ArrayList<Float> prices = new ArrayList<>();
 
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_PRICES_REQUEST);
             statement.setInt(1, bouquetIndex);
             ResultSet resultSet = statement.executeQuery();
@@ -106,7 +102,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private void addChamomile(Flower flower) {
         Chamomile chamomile = (Chamomile) flower;
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
             statement.setString(1, "chamomile");
             statement.setInt(2, chamomile.getLength());
@@ -124,7 +120,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private void addRose(Flower flower) {
         Rose rose = (Rose) flower;
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
             statement.setString(1, "rose");
@@ -141,7 +137,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private void addTulip(Flower flower) {
         Tulip tulip = (Tulip) flower;
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
             statement.setString(1, "tulip");
             statement.setInt(2, tulip.getLength());
@@ -157,7 +153,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private void addGeneralFlower(Flower flower) {
         GeneralFlower tulip = (GeneralFlower) flower;
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
             statement.setString(1, "general flower");
             statement.setInt(2, tulip.getLength());
@@ -193,7 +189,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public void deleteFlower(int flowerId) {
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DELETE_FLOWER_REQUEST);
             statement.setInt(1, flowerId);
             statement.execute();
@@ -208,7 +204,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public void addFlowerToBouquet(int flowerId, int bouquetId) {
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_TO_BOUQUET_REQUEST);
             statement.setInt(1, bouquetId);
             statement.setInt(2, flowerId);
@@ -226,7 +222,7 @@ public class SqliteFlowerDao implements FlowerDao {
     public ArrayList<Flower> getBouquetFlowers(int bouquetId) {
 
         ArrayList<Flower> flowers = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_BOUQUETS_FLOWERS);
             statement.setInt(1, bouquetId);
 
@@ -262,7 +258,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
         if (((GeneralFlower) flower).getFlowerId() > 0) {
 
-            try (Connection connection = dataSource.getConnection()){
+            try (Connection connection = dataSource.getConnection()) {
                 PreparedStatement statement = connection.prepareStatement(UPDATE_FLOWER_REQUEST);
 
                 statement.setInt(1, flower.getLength());

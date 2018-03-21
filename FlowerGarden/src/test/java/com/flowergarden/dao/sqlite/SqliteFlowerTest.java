@@ -1,39 +1,14 @@
 package com.flowergarden.dao.sqlite;
 
-import com.flowergarden.connection.SqliteConnection;
-import com.flowergarden.dao.DaoFactory;
-import com.flowergarden.dao.FlowerDao;
-import com.flowergarden.flowers.Chamomile;
-import com.flowergarden.flowers.Flower;
-import com.flowergarden.flowers.FlowersBuilder;
-import com.flowergarden.flowers.GeneralFlower;
-import com.flowergarden.flowers.exceptions.FlowerException;
-import com.flowergarden.properties.FreshnessInteger;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Mockito.when;
-
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class SqliteFlowerTest {
 
     private static Logger log = Logger.getLogger(SqliteFlowerTest.class.getName());
+    /*
 
     @Mock
     SqliteConnection sqliteConnection;
@@ -237,5 +212,6 @@ public class SqliteFlowerTest {
         }
 
     }
+    */
 
 }

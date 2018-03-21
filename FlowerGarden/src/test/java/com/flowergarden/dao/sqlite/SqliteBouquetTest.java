@@ -1,35 +1,15 @@
 package com.flowergarden.dao.sqlite;
 
-import com.flowergarden.bouquet.Bouquet;
-import com.flowergarden.bouquet.BouquetBuilder;
-import com.flowergarden.bouquet.MarriedBouquet;
-import com.flowergarden.connection.SqliteConnection;
-import com.flowergarden.dao.BouquetDao;
-import com.flowergarden.dao.DaoFactory;
 import org.apache.log4j.Logger;
-import org.junit.*;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.when;
-
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 
 public class SqliteBouquetTest {
 
     private static Logger log = Logger.getLogger(SqliteBouquetTest.class.getName());
-
+    /*
     @Mock
     private SqliteConnection sqliteConnection;
 
@@ -47,20 +27,11 @@ public class SqliteBouquetTest {
             log.error(e.getClass() + " : " + e.getMessage());
         }
     }
-
-    /*
-    @AfterClass
-    public static void after(){
-        try {
-            SqliteConnection.getSqliteConnection().getConnection().close();
-        } catch (SQLException e){
-            log.error(e.getClass() + " : " + e.getMessage());
-        }
-    }
     */
+    /*
 
     @Test
-    public void getAssemblePriceTest(){
+    public void getAssemblePriceTest() {
 
         float price = bouquetDao.getAssemblePrice(1);
 
@@ -68,10 +39,10 @@ public class SqliteBouquetTest {
     }
 
     @Test
-    public void bouquetsAmountShouldBeRaisedByOne(){
+    public void bouquetsAmountShouldBeRaisedByOne() {
 
         Bouquet bouquet = new BouquetBuilder().setAssemblePrice(90.0f)
-                            .setName("test_bouquet").getBouquet();
+                .setName("test_bouquet").getBouquet();
 
         ArrayList<Bouquet> bouquetsBefore = bouquetDao.getAllBouquets();
 
@@ -84,7 +55,7 @@ public class SqliteBouquetTest {
 
 
     @Test
-    public void bouquetsAmountShouldBeDecreasedByOne(){
+    public void bouquetsAmountShouldBeDecreasedByOne() {
 
         Bouquet bouquet = new BouquetBuilder().setAssemblePrice(90.0f)
                 .setName("test bouquet for removing").getBouquet();
@@ -99,7 +70,7 @@ public class SqliteBouquetTest {
     }
 
     @Test
-    public void firstMarriedBouquetAsPriceShouldBeUpdated(){
+    public void firstMarriedBouquetAsPriceShouldBeUpdated() {
 
         float priceBefore = bouquetDao.getAssemblePrice(1);
 
@@ -112,13 +83,14 @@ public class SqliteBouquetTest {
 
         bouquetDao.updateBouquetAssemblePrice(1, priceBefore);
 
-        assertTrue(bouquetDao.getAssemblePrice(1) == priceBefore );
+        assertTrue(bouquetDao.getAssemblePrice(1) == priceBefore);
     }
 
     @Test
-    public void getBouquetTest(){
+    public void getBouquetTest() {
         Bouquet bouquet = bouquetDao.getBouquet(1);
-        assertEquals(bouquet.getClass().getSimpleName() , MarriedBouquet.class.getSimpleName());
+        assertEquals(bouquet.getClass().getSimpleName(), MarriedBouquet.class.getSimpleName());
     }
+    */
 
 }
