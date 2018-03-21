@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service("getBouquetPriceService")
 public class GetBouquetPriceService {
     @Autowired
     private FlowerDao flowerDao = new DaoFactory().getSqliteFlowerDao();
