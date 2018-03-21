@@ -9,12 +9,14 @@ import java.sql.SQLException;
 
 public class SqliteConnection {
 
-    private final static String SQLITE_URL = "jdbc:sqlite:flowergarden.db";
+    private String sqliteUrl = "jdbc:sqlite:flowergarden.db";
+
     private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
-    private static SqliteConnection sqliteConnection = new SqliteConnection();
+    private static SqliteConnection sqliteConnection = new SqliteConnection("jdbc:sqlite:flowergarden.db");
     private Connection connection = null;
 
-    private SqliteConnection() {
+    private SqliteConnection(String sqliteUrl) {
+        this.sqliteUrl = sqliteUrl;
         this.connect();
     }
 
@@ -24,7 +26,7 @@ public class SqliteConnection {
 
     private void connect() {
         try {
-            this.connection = DriverManager.getConnection(SQLITE_URL);
+            this.connection = DriverManager.getConnection(this.sqliteUrl);
         } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }

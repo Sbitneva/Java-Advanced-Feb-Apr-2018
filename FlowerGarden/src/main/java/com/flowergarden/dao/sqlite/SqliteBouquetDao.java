@@ -7,13 +7,23 @@ import com.flowergarden.bouquet.MarriedBouquet;
 import com.flowergarden.connection.SqliteConnection;
 import com.flowergarden.dao.BouquetDao;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+@Repository
+@Qualifier("sqliteBouquetDao")
 public class SqliteBouquetDao implements BouquetDao {
 
     /**
@@ -35,18 +45,13 @@ public class SqliteBouquetDao implements BouquetDao {
     private static final String ASSEMBLE_PRICE = "assemble_price";
     private static Logger log = Logger.getLogger(SqliteBouquetDao.class.getName());
 
-    private SqliteConnection sqliteConnection = SqliteConnection.getSqliteConnection();
-
-    public SqliteBouquetDao() {
-
-    }
+    @Autowired
+    private DataSource dataSource;
 
     @Override
     public void addBouquet(Bouquet bouquet) {
 
-        try {
-            Connection connection = sqliteConnection.getConnection();
-
+        try (Connection connection = dataSource.getConnection()){
             PreparedStatement statement = connection.prepareStatement(ADD_BOUQUET_REQUEST);
 
             if (bouquet.getClass().isInstance(MarriedBouquet.class)) {
@@ -67,8 +72,7 @@ public class SqliteBouquetDao implements BouquetDao {
 
         float assemblePrice = 0f;
 
-        try {
-            Connection connection = sqliteConnection.getConnection();
+        try (Connection connection = dataSource.getConnection()){
 
             PreparedStatement statement = connection.prepareStatement(GET_ASSEMBLE_PRICE_REQUEST);
             statement.setInt(1, bouquetId);
@@ -91,8 +95,7 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public Bouquet getBouquet(int id) {
 
-        try {
-            Connection connection = sqliteConnection.getConnection();
+        try (Connection connection = dataSource.getConnection()){
 
             PreparedStatement statement = connection.prepareStatement(GET_BOUQUET_REQUEST);
             statement.setInt(1, id);
@@ -119,8 +122,7 @@ public class SqliteBouquetDao implements BouquetDao {
 
         ArrayList<Bouquet> bouquets = new ArrayList<>();
 
-        try {
-            Connection connection = sqliteConnection.getConnection();
+        try (Connection connection = dataSource.getConnection()){
 
             PreparedStatement statement = connection.prepareStatement(GET_ALL_BOUQUETS);
             ResultSet resultSet = statement.executeQuery();
@@ -141,8 +143,7 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public void updateBouquetAssemblePrice(int bouquetId, float assemblePrice) {
 
-        try {
-            Connection connection = sqliteConnection.getConnection();
+        try (Connection connection = dataSource.getConnection()){
 
             PreparedStatement statement = connection.prepareStatement(UPDATE_ASSEMBLE_PRICE);
             statement.setFloat(1, assemblePrice);
@@ -158,8 +159,7 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public void deleteBouquet(int id) {
 
-        try {
-            Connection connection = sqliteConnection.getConnection();
+        try (Connection connection = dataSource.getConnection()){
 
             PreparedStatement statement = connection.prepareStatement(DELETE_BOUQUET);
             statement.setInt(1, id);
