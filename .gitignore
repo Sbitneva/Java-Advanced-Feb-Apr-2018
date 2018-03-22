@@ -1,6 +1,7 @@
 .idea/
 target/
 .m2/
+memory:*
 checkstyle-*
 *.class
 *.iml
