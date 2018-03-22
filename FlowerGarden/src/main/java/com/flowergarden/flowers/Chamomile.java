@@ -14,9 +14,11 @@ public class Chamomile extends GeneralFlower {
     }
 
     public boolean getPetal() {
-        if (petals <= 0) return false;
-        petals = -1;
-        return true;
+        if (petals <= 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public int getPetals() {
