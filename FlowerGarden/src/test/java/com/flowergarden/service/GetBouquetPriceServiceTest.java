@@ -19,14 +19,15 @@ public class GetBouquetPriceServiceTest {
 
     @Mock
     private FlowerDao mockFlowerDao;
+
     @Mock
     private BouquetDao mockBouquetDao;
+
     @InjectMocks
     private GetBouquetPriceService getBouquetPriceService;
 
     @Test
     public void initData() {
-
         float expectedPrice = 0;
         ArrayList<Float> prices = new ArrayList<>();
 

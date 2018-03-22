@@ -18,12 +18,12 @@ public class TestConfiguration {
     @Bean
     @Profile("test")
     public DataSource dataSource() {
-
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
         dataSource.setUrl(env.getRequiredProperty("jdbc.url"));
         return dataSource;
     }
+
 }
 
 
