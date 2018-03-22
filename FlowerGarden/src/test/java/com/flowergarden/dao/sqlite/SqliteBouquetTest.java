@@ -4,7 +4,6 @@ import com.flowergarden.TestConfiguration;
 import com.flowergarden.bouquet.Bouquet;
 import com.flowergarden.bouquet.BouquetBuilder;
 import com.flowergarden.bouquet.MarriedBouquet;
-import com.flowergarden.config.ApplicationConfig;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,23 +11,16 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
-import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
@@ -46,8 +38,8 @@ public class SqliteBouquetTest {
 
 
     @Before
-    public void init(){
-        try (Connection connection = dataSource.getConnection()){
+    public void init() {
+        try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("restore from flowergarden.test.db");
         } catch (SQLException e) {

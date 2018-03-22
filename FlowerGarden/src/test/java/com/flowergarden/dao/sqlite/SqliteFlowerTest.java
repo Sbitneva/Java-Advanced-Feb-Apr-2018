@@ -1,28 +1,49 @@
 package com.flowergarden.dao.sqlite;
 
+import com.flowergarden.TestConfiguration;
+import com.flowergarden.flowers.Flower;
+import com.flowergarden.flowers.FlowersBuilder;
+import com.flowergarden.flowers.GeneralFlower;
+import com.flowergarden.flowers.exceptions.FlowerException;
+import com.flowergarden.properties.FreshnessInteger;
 import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-//@RunWith(MockitoJUnitRunner.class)
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestConfiguration.class)
 public class SqliteFlowerTest {
 
     private static Logger log = Logger.getLogger(SqliteFlowerTest.class.getName());
-    /*
 
     @Mock
-    SqliteConnection sqliteConnection;
+    @Autowired
+    private DataSource dataSource;
 
     @InjectMocks
-    SqliteFlowerDao flowerDao;
-
-    Connection connection;
+    @Autowired
+    SqliteFlowerDao sqliteFlowerDao;
 
     @Before
-    public void init(){
-        try{
-            when(sqliteConnection.getConnection()).thenReturn(DriverManager.getConnection("jdbc:sqlite:"));
-            connection = sqliteConnection.getConnection();
+    public void init() {
+        try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("restore from flowergarden.test.db");
         } catch (SQLException e) {
@@ -32,7 +53,7 @@ public class SqliteFlowerTest {
 
     @Test
     public void getFlowersPricesForBouquetTest(){
-        ArrayList<Float> flowerPrices = flowerDao.getFlowersPricesForBouquet(1);
+        ArrayList<Float> flowerPrices = sqliteFlowerDao.getFlowersPricesForBouquet(1);
         float price = 0;
         for(Float flowerPrice : flowerPrices) {
             price += flowerPrice;
@@ -71,14 +92,14 @@ public class SqliteFlowerTest {
                     .setPrice(12.5f)
                     .setBouquetId(0).buildFlower();
 
-            int flowersAmountBefore = flowerDao.getAllFlowers().size();
+            int flowersAmountBefore = sqliteFlowerDao.getAllFlowers().size();
 
-            flowerDao.addFlower(chamomile);
-            flowerDao.addFlower(rose);
-            flowerDao.addFlower(tulip);
-            flowerDao.addFlower(generalFlower);
+            sqliteFlowerDao.addFlower(chamomile);
+            sqliteFlowerDao.addFlower(rose);
+            sqliteFlowerDao.addFlower(tulip);
+            sqliteFlowerDao.addFlower(generalFlower);
 
-            int flowersAmountAfter = flowerDao.getAllFlowers().size();
+            int flowersAmountAfter = sqliteFlowerDao.getAllFlowers().size();
 
             assertEquals(flowersAmountBefore + 4, flowersAmountAfter);
 
@@ -96,17 +117,17 @@ public class SqliteFlowerTest {
                     .setPrice(12.5f)
                     .setBouquetId(0).buildFlower();
 
-            int flowersAmountBefore = flowerDao.getAllFlowers().size();
+            int flowersAmountBefore = sqliteFlowerDao.getAllFlowers().size();
 
-            flowerDao.addFlower(tulip);
+            sqliteFlowerDao.addFlower(tulip);
 
-            int flowerAmountAfterAddition = flowerDao.getAllFlowers().size();
+            int flowerAmountAfterAddition = sqliteFlowerDao.getAllFlowers().size();
 
             assertEquals(flowersAmountBefore + 1, flowerAmountAfterAddition);
 
-            flowerDao.deleteFlower(flowerAmountAfterAddition);
+            sqliteFlowerDao.deleteFlower(flowerAmountAfterAddition);
 
-            assertEquals(flowersAmountBefore, flowerDao.getAllFlowers().size());
+            assertEquals(flowersAmountBefore, sqliteFlowerDao.getAllFlowers().size());
 
         } catch (FlowerException e){
             log.error(e.getClass() + " : " + e.getMessage());
@@ -116,18 +137,18 @@ public class SqliteFlowerTest {
     @Test
     public void addFlowerToBouquetTest(){
 
-        ArrayList<Flower> flowers = flowerDao.getAllFlowers();
+        ArrayList<Flower> flowers = sqliteFlowerDao.getAllFlowers();
         Flower flower = flowers.get(2);
         int flowerId = ((GeneralFlower) flower).getFlowerId();
         int bouquetIdBefore = ((GeneralFlower)flower).getBouquetId();
-        flowerDao.addFlowerToBouquet(flowerId, 0);
+        sqliteFlowerDao.addFlowerToBouquet(flowerId, 0);
         assertNotEquals(bouquetIdBefore, 0);
-        flowerDao.addFlowerToBouquet(flowerId, bouquetIdBefore);
+        sqliteFlowerDao.addFlowerToBouquet(flowerId, bouquetIdBefore);
     }
 
     @Test
     public void getBouquetFlowersTest(){
-        ArrayList<Flower> flowers = flowerDao.getBouquetFlowers(1);
+        ArrayList<Flower> flowers = sqliteFlowerDao.getBouquetFlowers(1);
         assertEquals(flowers.size(), 6);
     }
 
@@ -161,19 +182,19 @@ public class SqliteFlowerTest {
                     .setPrice(12.5f)
                     .setBouquetId(0).buildFlower();
 
-            int flowersAmountBefore = flowerDao.getAllFlowers().size();
+            int flowersAmountBefore = sqliteFlowerDao.getAllFlowers().size();
 
-            flowerDao.addFlower(chamomile);
-            flowerDao.addFlower(rose);
-            flowerDao.addFlower(tulip);
-            flowerDao.addFlower(generalFlower);
+            sqliteFlowerDao.addFlower(chamomile);
+            sqliteFlowerDao.addFlower(rose);
+            sqliteFlowerDao.addFlower(tulip);
+            sqliteFlowerDao.addFlower(generalFlower);
 
-            int flowersAmountAfter = flowerDao.getAllFlowers().size();
+            int flowersAmountAfter = sqliteFlowerDao.getAllFlowers().size();
 
             assertEquals(flowersAmountBefore + 4, flowersAmountAfter);
 
 
-            ArrayList<Flower> flowers = flowerDao.getAllFlowers();
+            ArrayList<Flower> flowers = sqliteFlowerDao.getAllFlowers();
 
             Flower flower1 = flowers.get(flowers.size() - 1);
             Flower flower2 = flowers.get(flowers.size() - 2);
@@ -185,12 +206,12 @@ public class SqliteFlowerTest {
             ((GeneralFlower)flower3).setLength(99);
             ((GeneralFlower)flower4).setLength(99);
 
-            flowerDao.updateFlower(flower1);
-            flowerDao.updateFlower(flower2);
-            flowerDao.updateFlower(flower3);
-            flowerDao.updateFlower(flower4);
+            sqliteFlowerDao.updateFlower(flower1);
+            sqliteFlowerDao.updateFlower(flower2);
+            sqliteFlowerDao.updateFlower(flower3);
+            sqliteFlowerDao.updateFlower(flower4);
 
-            flowers = flowerDao.getAllFlowers();
+            flowers = sqliteFlowerDao.getAllFlowers();
 
             for(Flower flower : flowers) {
                 if(((GeneralFlower)flower).getFlowerId() == ((GeneralFlower)flower1).getFlowerId()){
@@ -212,6 +233,6 @@ public class SqliteFlowerTest {
         }
 
     }
-    */
+
 
 }
