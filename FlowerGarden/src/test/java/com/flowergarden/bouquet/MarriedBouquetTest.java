@@ -6,20 +6,28 @@ import com.flowergarden.flowers.Rose;
 import com.flowergarden.flowers.Tulip;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collection;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MarriedBouquetTest {
 
+    @InjectMocks
     private MarriedBouquet marriedBouquet;
-    private Chamomile chamomile = mock(Chamomile.class);
-    private Rose rose = mock(Rose.class);
-    private Tulip tulip = mock(Tulip.class);
+    @Mock
+    private Chamomile chamomile;
+    @Mock
+    private Rose rose;
+    @Mock
+    private Tulip tulip;
 
     @Before
     public void createMarriedBouquet() {

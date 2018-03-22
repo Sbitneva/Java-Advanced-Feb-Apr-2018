@@ -1,6 +1,7 @@
 package com.flowergarden.dao.sqlite;
 
 import com.flowergarden.TestConfiguration;
+import com.flowergarden.flowers.Chamomile;
 import com.flowergarden.flowers.Flower;
 import com.flowergarden.flowers.FlowersBuilder;
 import com.flowergarden.flowers.GeneralFlower;
@@ -12,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,9 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
@@ -184,6 +182,9 @@ public class SqliteFlowerTest {
 
             int flowersAmountBefore = sqliteFlowerDao.getAllFlowers().size();
 
+            assertEquals(((Chamomile)chamomile).getPetals(), 20);
+            assertEquals(((Chamomile)chamomile).getPetal(), true);
+
             sqliteFlowerDao.addFlower(chamomile);
             sqliteFlowerDao.addFlower(rose);
             sqliteFlowerDao.addFlower(tulip);
@@ -192,7 +193,6 @@ public class SqliteFlowerTest {
             int flowersAmountAfter = sqliteFlowerDao.getAllFlowers().size();
 
             assertEquals(flowersAmountBefore + 4, flowersAmountAfter);
-
 
             ArrayList<Flower> flowers = sqliteFlowerDao.getAllFlowers();
 
