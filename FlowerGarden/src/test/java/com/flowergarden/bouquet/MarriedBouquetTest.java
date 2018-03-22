@@ -22,15 +22,18 @@ public class MarriedBouquetTest {
 
     @InjectMocks
     private MarriedBouquet marriedBouquet;
+
     @Mock
     private Chamomile chamomile;
+
     @Mock
     private Rose rose;
+
     @Mock
     private Tulip tulip;
 
     @Before
-    public void createMarriedBouquet() {
+    public void setUp() {
 
         marriedBouquet = new MarriedBouquet();
         marriedBouquet.addFlower(chamomile);
