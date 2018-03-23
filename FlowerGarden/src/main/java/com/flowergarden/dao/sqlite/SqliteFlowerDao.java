@@ -55,8 +55,9 @@ public class SqliteFlowerDao implements FlowerDao {
 
         ArrayList<Flower> flowers = new ArrayList<>();
 
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(GET_ALL_FLOWERS);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_ALL_FLOWERS)) {
+
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 try {
@@ -86,8 +87,9 @@ public class SqliteFlowerDao implements FlowerDao {
 
         ArrayList<Float> prices = new ArrayList<>();
 
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(GET_PRICES_REQUEST);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_PRICES_REQUEST)) {
+
             statement.setInt(1, bouquetIndex);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -102,8 +104,9 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private void addChamomile(Flower flower) {
         Chamomile chamomile = (Chamomile) flower;
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST)) {
+
             statement.setString(1, "chamomile");
             statement.setInt(2, chamomile.getLength());
             statement.setInt(3, (chamomile.getFreshness()).getFreshness());
@@ -120,9 +123,9 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private void addRose(Flower flower) {
         Rose rose = (Rose) flower;
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST)) {
 
-            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
             statement.setString(1, "rose");
             statement.setInt(2, rose.getLength());
             statement.setInt(3, (rose.getFreshness()).getFreshness());
@@ -137,8 +140,9 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private void addTulip(Flower flower) {
         Tulip tulip = (Tulip) flower;
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST)) {
+
             statement.setString(1, "tulip");
             statement.setInt(2, tulip.getLength());
             statement.setInt(3, (tulip.getFreshness()).getFreshness());
@@ -153,8 +157,8 @@ public class SqliteFlowerDao implements FlowerDao {
 
     private void addGeneralFlower(Flower flower) {
         GeneralFlower tulip = (GeneralFlower) flower;
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_REQUEST)) {
             statement.setString(1, "general flower");
             statement.setInt(2, tulip.getLength());
             statement.setInt(3, (tulip.getFreshness()).getFreshness());
@@ -189,8 +193,9 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public void deleteFlower(int flowerId) {
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(DELETE_FLOWER_REQUEST);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_FLOWER_REQUEST)) {
+
             statement.setInt(1, flowerId);
             statement.execute();
         } catch (SQLException e) {
@@ -204,8 +209,9 @@ public class SqliteFlowerDao implements FlowerDao {
 
     @Override
     public void addFlowerToBouquet(int flowerId, int bouquetId) {
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_TO_BOUQUET_REQUEST);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_FLOWER_TO_BOUQUET_REQUEST)) {
+
             statement.setInt(1, bouquetId);
             statement.setInt(2, flowerId);
             statement.executeUpdate();
@@ -222,8 +228,9 @@ public class SqliteFlowerDao implements FlowerDao {
     public ArrayList<Flower> getBouquetFlowers(int bouquetId) {
 
         ArrayList<Flower> flowers = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(GET_BOUQUETS_FLOWERS);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_BOUQUETS_FLOWERS)) {
+
             statement.setInt(1, bouquetId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -258,8 +265,8 @@ public class SqliteFlowerDao implements FlowerDao {
 
         if (((GeneralFlower) flower).getFlowerId() > 0) {
 
-            try (Connection connection = dataSource.getConnection()) {
-                PreparedStatement statement = connection.prepareStatement(UPDATE_FLOWER_REQUEST);
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement(UPDATE_FLOWER_REQUEST)) {
 
                 statement.setInt(1, flower.getLength());
                 statement.setInt(2, ((GeneralFlower) flower).getFreshness().getFreshness());
