@@ -47,8 +47,8 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public void addBouquet(Bouquet bouquet) {
 
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(ADD_BOUQUET_REQUEST);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(ADD_BOUQUET_REQUEST)) {
 
             if (bouquet.getClass().isInstance(MarriedBouquet.class)) {
                 statement.setString(1, "married");
@@ -68,9 +68,10 @@ public class SqliteBouquetDao implements BouquetDao {
 
         float assemblePrice = 0f;
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(GET_ASSEMBLE_PRICE_REQUEST)) {
 
-            PreparedStatement statement = connection.prepareStatement(GET_ASSEMBLE_PRICE_REQUEST);
+
             statement.setInt(1, bouquetId);
             ResultSet resultSet = statement.executeQuery();
 
@@ -91,9 +92,9 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public Bouquet getBouquet(int id) {
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_BOUQUET_REQUEST)) {
 
-            PreparedStatement statement = connection.prepareStatement(GET_BOUQUET_REQUEST);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
@@ -103,6 +104,7 @@ public class SqliteBouquetDao implements BouquetDao {
                         .setName(resultSet.getString(NAME)).getBouquet();
 
             }
+
         } catch (SQLException e) {
             log.error(e.getClass() + " : " + e.getMessage());
         }
@@ -118,9 +120,9 @@ public class SqliteBouquetDao implements BouquetDao {
 
         ArrayList<Bouquet> bouquets = new ArrayList<>();
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_ALL_BOUQUETS)) {
 
-            PreparedStatement statement = connection.prepareStatement(GET_ALL_BOUQUETS);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -139,9 +141,9 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public void updateBouquetAssemblePrice(int bouquetId, float assemblePrice) {
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_ASSEMBLE_PRICE)) {
 
-            PreparedStatement statement = connection.prepareStatement(UPDATE_ASSEMBLE_PRICE);
             statement.setFloat(1, assemblePrice);
             statement.setInt(2, bouquetId);
 
@@ -155,9 +157,9 @@ public class SqliteBouquetDao implements BouquetDao {
     @Override
     public void deleteBouquet(int id) {
 
-        try (Connection connection = dataSource.getConnection()) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_BOUQUET)) {
 
-            PreparedStatement statement = connection.prepareStatement(DELETE_BOUQUET);
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
