@@ -84,6 +84,7 @@ public class FlowersBuilder {
 
         chamomile.setFlowerId(this.flowerId);
         chamomile.setBouquetId(this.bouquetId);
+        chamomile.setName(this.name);
 
         return chamomile;
     }
@@ -94,6 +95,7 @@ public class FlowersBuilder {
 
         rose.setFlowerId(this.flowerId);
         rose.setBouquetId(this.bouquetId);
+        rose.setName(this.name);
 
         return rose;
     }
@@ -107,6 +109,7 @@ public class FlowersBuilder {
         tulip.setPrice(this.price);
         tulip.setFlowerId(this.flowerId);
         tulip.setBouquetId(this.bouquetId);
+        tulip.setName(this.name);
 
         return tulip;
     }
@@ -120,11 +123,12 @@ public class FlowersBuilder {
         generalFlower.setFreshness(this.freshness);
         generalFlower.setLength(this.length);
         generalFlower.setPrice(this.price);
+        generalFlower.setName("general flower");
 
         return generalFlower;
     }
 
-    public Flower buildFlower() {
+    public GeneralFlower buildFlower() {
         switch (this.name) {
             case "chamomile":
                 return this.createChamomile();

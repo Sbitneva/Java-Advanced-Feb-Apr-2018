@@ -5,6 +5,8 @@ import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 
@@ -32,13 +34,5 @@ public class Run {
         tomcat.start();
         tomcat.getServer().await();
 
-        /*
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-
-        GetBouquetPriceService getBouquetPriceService = (GetBouquetPriceService) context.getBean("getBouquetPriceService");
-        System.out.println(getBouquetPriceService.getPrice(1));
-
-        context.close();
-        */
     }
 }

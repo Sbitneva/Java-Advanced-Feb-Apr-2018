@@ -61,27 +61,27 @@ public class SqliteFlowerTest {
     @Test
     public void allTypesOfFlowersShouldBeAdded() {
         try {
-            Flower chamomile = new FlowersBuilder().setName("chamomile")
+            GeneralFlower chamomile = new FlowersBuilder().setName("chamomile")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
                     .setPetals(20)
                     .setBouquetId(0).buildFlower();
 
-            Flower rose = new FlowersBuilder().setName("rose")
+            GeneralFlower rose = new FlowersBuilder().setName("rose")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
                     .setSpike(true)
                     .setBouquetId(0).buildFlower();
 
-            Flower tulip = new FlowersBuilder().setName("tulip")
+            GeneralFlower tulip = new FlowersBuilder().setName("tulip")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
                     .setBouquetId(0).buildFlower();
 
-            Flower generalFlower = new FlowersBuilder().setName("lily")
+            GeneralFlower generalFlower = new FlowersBuilder().setName("lily")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
@@ -106,7 +106,7 @@ public class SqliteFlowerTest {
     @Test
     public void deleteFlowerTest() {
         try {
-            Flower tulip = new FlowersBuilder().setName("tulip")
+            GeneralFlower tulip = new FlowersBuilder().setName("tulip")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
@@ -131,7 +131,7 @@ public class SqliteFlowerTest {
 
     @Test
     public void addFlowerToBouquetTest() {
-        ArrayList<Flower> flowers = sqliteFlowerDao.getAllFlowers();
+        ArrayList<GeneralFlower> flowers = sqliteFlowerDao.getAllFlowers();
         Flower flower = flowers.get(2);
         int flowerId = ((GeneralFlower) flower).getFlowerId();
         int bouquetIdBefore = ((GeneralFlower) flower).getBouquetId();
@@ -142,34 +142,34 @@ public class SqliteFlowerTest {
 
     @Test
     public void getBouquetFlowersTest() {
-        ArrayList<Flower> flowers = sqliteFlowerDao.getBouquetFlowers(1);
+        ArrayList<GeneralFlower> flowers = sqliteFlowerDao.getBouquetFlowers(1);
         assertEquals(flowers.size(), 6);
     }
 
     @Test
     public void updateAllTypesOfFlowers() {
         try {
-            Flower chamomile = new FlowersBuilder().setName("chamomile")
+            GeneralFlower chamomile = new FlowersBuilder().setName("chamomile")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
                     .setPetals(20)
                     .setBouquetId(0).buildFlower();
 
-            Flower rose = new FlowersBuilder().setName("rose")
+            GeneralFlower rose = new FlowersBuilder().setName("rose")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
                     .setSpike(true)
                     .setBouquetId(0).buildFlower();
 
-            Flower tulip = new FlowersBuilder().setName("tulip")
+            GeneralFlower tulip = new FlowersBuilder().setName("tulip")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
                     .setBouquetId(0).buildFlower();
 
-            Flower generalFlower = new FlowersBuilder().setName("lily")
+            GeneralFlower generalFlower = new FlowersBuilder().setName("lily")
                     .setLength(5)
                     .setFreshness(new FreshnessInteger(2))
                     .setPrice(12.5f)
@@ -189,17 +189,17 @@ public class SqliteFlowerTest {
 
             assertEquals(flowersAmountBefore + 4, flowersAmountAfter);
 
-            ArrayList<Flower> flowers = sqliteFlowerDao.getAllFlowers();
+            ArrayList<GeneralFlower> flowers = sqliteFlowerDao.getAllFlowers();
 
-            Flower flower1 = flowers.get(flowers.size() - 1);
-            Flower flower2 = flowers.get(flowers.size() - 2);
-            Flower flower3 = flowers.get(flowers.size() - 3);
-            Flower flower4 = flowers.get(flowers.size() - 4);
+            GeneralFlower flower1 = flowers.get(flowers.size() - 1);
+            GeneralFlower flower2 = flowers.get(flowers.size() - 2);
+            GeneralFlower flower3 = flowers.get(flowers.size() - 3);
+            GeneralFlower flower4 = flowers.get(flowers.size() - 4);
 
-            ((GeneralFlower) flower1).setLength(99);
-            ((GeneralFlower) flower2).setLength(99);
-            ((GeneralFlower) flower3).setLength(99);
-            ((GeneralFlower) flower4).setLength(99);
+            flower1.setLength(99);
+            flower2.setLength(99);
+            flower3.setLength(99);
+            flower4.setLength(99);
 
             sqliteFlowerDao.updateFlower(flower1);
             sqliteFlowerDao.updateFlower(flower2);
@@ -209,16 +209,16 @@ public class SqliteFlowerTest {
             flowers = sqliteFlowerDao.getAllFlowers();
 
             for (Flower flower : flowers) {
-                if (((GeneralFlower) flower).getFlowerId() == ((GeneralFlower) flower1).getFlowerId()) {
+                if (((GeneralFlower) flower).getFlowerId() == flower1.getFlowerId()) {
                     assertEquals(flower.getLength(), 99);
                 }
-                if (((GeneralFlower) flower).getFlowerId() == ((GeneralFlower) flower2).getFlowerId()) {
+                if (((GeneralFlower) flower).getFlowerId() == flower2.getFlowerId()) {
                     assertEquals(flower.getLength(), 99);
                 }
-                if (((GeneralFlower) flower).getFlowerId() == ((GeneralFlower) flower3).getFlowerId()) {
+                if (((GeneralFlower) flower).getFlowerId() == flower3.getFlowerId()) {
                     assertEquals(flower.getLength(), 99);
                 }
-                if (((GeneralFlower) flower).getFlowerId() == ((GeneralFlower) flower4).getFlowerId()) {
+                if (((GeneralFlower) flower).getFlowerId() == flower4.getFlowerId()) {
                     assertEquals(flower.getLength(), 99);
                 }
             }

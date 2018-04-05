@@ -11,6 +11,8 @@ public class MarriedBouquet implements Bouquet<GeneralFlower> {
 
     private int id;
 
+    private String name;
+
     private float assemblePrice = 120;
 
     private List<GeneralFlower> flowerList = new ArrayList<>();
@@ -65,5 +67,13 @@ public class MarriedBouquet implements Bouquet<GeneralFlower> {
     @Override
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -51,9 +51,9 @@ public class SqliteFlowerDao implements FlowerDao {
     private DataSource dataSource;
 
     @Override
-    public ArrayList<Flower> getAllFlowers() {
+    public ArrayList<GeneralFlower> getAllFlowers() {
 
-        ArrayList<Flower> flowers = new ArrayList<>();
+        ArrayList<GeneralFlower> flowers = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_ALL_FLOWERS)) {
@@ -62,7 +62,7 @@ public class SqliteFlowerDao implements FlowerDao {
             while (resultSet.next()) {
                 try {
                     FlowersBuilder flowersBuilder = new FlowersBuilder();
-                    Flower flower = flowersBuilder.setFlowerId(resultSet.getInt(ID))
+                    GeneralFlower flower = flowersBuilder.setFlowerId(resultSet.getInt(ID))
                             .setName(resultSet.getString(NAME))
                             .setPrice(resultSet.getFloat(PRICE))
                             .setLength(resultSet.getInt(LENGTH))
@@ -175,7 +175,7 @@ public class SqliteFlowerDao implements FlowerDao {
      */
 
     @Override
-    public void addFlower(Flower flower) {
+    public void addFlower(GeneralFlower flower) {
         if (flower instanceof Chamomile) {
             addChamomile(flower);
         } else if (flower instanceof Rose) {
@@ -225,9 +225,9 @@ public class SqliteFlowerDao implements FlowerDao {
      */
 
     @Override
-    public ArrayList<Flower> getBouquetFlowers(int bouquetId) {
+    public ArrayList<GeneralFlower> getBouquetFlowers(int bouquetId) {
 
-        ArrayList<Flower> flowers = new ArrayList<>();
+        ArrayList<GeneralFlower> flowers = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_BOUQUETS_FLOWERS)) {
 
@@ -237,7 +237,7 @@ public class SqliteFlowerDao implements FlowerDao {
 
             while (resultSet.next()) {
                 try {
-                    Flower flower = new FlowersBuilder().setFlowerId(resultSet.getInt(ID))
+                    GeneralFlower flower = new FlowersBuilder().setFlowerId(resultSet.getInt(ID))
                             .setLength(resultSet.getInt(LENGTH))
                             .setFreshness(new FreshnessInteger(resultSet.getInt(FRESHNESS)))
                             .setPrice(resultSet.getFloat(PRICE))
@@ -261,9 +261,9 @@ public class SqliteFlowerDao implements FlowerDao {
     }
 
     @Override
-    public void updateFlower(Flower flower) {
+    public void updateFlower(GeneralFlower flower) {
 
-        if (((GeneralFlower) flower).getFlowerId() > 0) {
+        if (flower.getFlowerId() > 0) {
 
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement statement = connection.prepareStatement(UPDATE_FLOWER_REQUEST)) {

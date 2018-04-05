@@ -6,8 +6,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower> {
 
-    int flowerId;
-    int bouquetId;
+    private int flowerId;
+    private int bouquetId;
+    private String name;
 
     FreshnessInteger freshness;
     @XmlElement
@@ -63,10 +64,21 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public int compareTo(GeneralFlower compareFlower) {
         int compareFresh = compareFlower.getFreshness().getFreshness();
         return this.getFreshness().getFreshness() - compareFresh;
     }
+
+
 
     @Override
     public String toString() {
