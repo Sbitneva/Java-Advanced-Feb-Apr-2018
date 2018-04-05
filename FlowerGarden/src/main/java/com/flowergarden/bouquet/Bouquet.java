@@ -12,6 +12,8 @@ public interface Bouquet<T> {
 
     void setAssemblePrice(float assemblePrice);
 
+    float getAssemblePrice();
+
     void addFlower(T flower);
 
     Collection<T> searchFlowersByLength(int start, int end);
@@ -19,4 +21,8 @@ public interface Bouquet<T> {
     void sortByFreshness();
 
     Collection<T> getFlowers();
+
+    void setName(String name);
+
+    String getName();
 }

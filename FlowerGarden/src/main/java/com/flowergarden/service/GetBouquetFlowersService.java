@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service("getBouquetInfoService")
-public class GetBouquetInfoService implements Services{
+public class GetBouquetFlowersService implements Services{
 
-    public GetBouquetInfoService(){
+    public GetBouquetFlowersService(){
 
     }
     @Autowired
     private SqliteFlowerDao sqliteFlowerDao;
 
-    public ArrayList<GeneralFlower> getBouquets(int bouquetId) {
+    public ArrayList<GeneralFlower> getFlowers(int bouquetId) {
         ArrayList<GeneralFlower> flowers = sqliteFlowerDao.getBouquetFlowers(bouquetId);
         return flowers;
     }

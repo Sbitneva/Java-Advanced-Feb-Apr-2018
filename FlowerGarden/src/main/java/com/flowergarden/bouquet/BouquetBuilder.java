@@ -29,11 +29,10 @@ public class BouquetBuilder {
                 break;
             default:
                 bouquet = new CommonBouquet();
-                ((CommonBouquet) bouquet).setName(this.name);
-
         }
         bouquet.setId(this.id);
         bouquet.setAssemblePrice(this.assemblePrice);
+        bouquet.setName(this.name);
 
         return bouquet;
     }
