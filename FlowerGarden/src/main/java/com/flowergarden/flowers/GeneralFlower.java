@@ -11,6 +11,7 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
     private String name;
 
     FreshnessInteger freshness;
+    private Integer freshnessValue;
     @XmlElement
     float price;
     @XmlElement
@@ -34,6 +35,14 @@ public class GeneralFlower implements Flower<Integer>, Comparable<GeneralFlower>
 
     public void setBouquetId(int bouquetId) {
         this.bouquetId = bouquetId;
+    }
+
+    public Integer getFreshnessValue() {
+        return this.freshnessValue.intValue();
+    }
+
+    public void setFreshnessValue(Integer freshnessValue) {
+        this.freshnessValue = freshnessValue;
     }
 
     @Override

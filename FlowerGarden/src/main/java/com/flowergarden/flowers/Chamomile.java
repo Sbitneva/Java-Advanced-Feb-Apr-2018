@@ -28,4 +28,9 @@ public class Chamomile extends GeneralFlower {
     public void setPetals(int petals) {
         this.petals = petals;
     }
+
+    @Override
+    public Integer getFreshnessValue() {
+        return super.getFreshnessValue();
+    }
 }
