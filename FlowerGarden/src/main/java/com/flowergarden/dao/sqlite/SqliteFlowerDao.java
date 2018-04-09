@@ -50,6 +50,10 @@ public class SqliteFlowerDao implements FlowerDao {
     @Autowired
     private DataSource dataSource;
 
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public ArrayList<Flower> getAllFlowers() {
 

@@ -44,6 +44,12 @@ public class SqliteBouquetDao implements BouquetDao {
     @Autowired
     private DataSource dataSource;
 
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+
+
     @Override
     public void addBouquet(Bouquet bouquet) {
 

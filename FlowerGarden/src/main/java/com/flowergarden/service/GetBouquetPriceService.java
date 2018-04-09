@@ -3,6 +3,8 @@ package com.flowergarden.service;
 import com.flowergarden.dao.BouquetDao;
 import com.flowergarden.dao.DaoFactory;
 import com.flowergarden.dao.FlowerDao;
+import com.flowergarden.dao.sqlite.SqliteBouquetDao;
+import com.flowergarden.dao.sqlite.SqliteFlowerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +37,14 @@ public class GetBouquetPriceService {
 
         return price;
     }
+
+    public void setSqliteFlowerDao(SqliteFlowerDao flowerDao) {
+        this.flowerDao = flowerDao;
+    }
+
+    public void setSqliteBouquetDao(SqliteBouquetDao bouquetDao) {
+        this.bouquetDao = bouquetDao;
+    }
+
+
 }
