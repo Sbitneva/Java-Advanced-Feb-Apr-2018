@@ -1,11 +1,10 @@
 package com.flowergarden.servlet;
 
+import com.flowergarden.ApplicationConfig;
+import com.flowergarden.ApplicationContextWrapper;
 import com.flowergarden.command.Command;
 import com.flowergarden.command.CommandsFactory;
-import com.flowergarden.config.ApplicationConfig;
 import org.apache.log4j.Logger;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
@@ -18,8 +17,6 @@ import java.io.IOException;
 
 @WebServlet("/FlowerGarden")
 public class ServletDispatcher extends HttpServlet {
-
-
 
     private static Logger log = Logger.getLogger(ServletDispatcher.class.getName());
 
@@ -47,6 +44,7 @@ public class ServletDispatcher extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         log.debug("Servlet initialization");
+        ApplicationContextWrapper.getContext();
     }
 
 

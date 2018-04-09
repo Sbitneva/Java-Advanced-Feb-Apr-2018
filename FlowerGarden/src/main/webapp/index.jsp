@@ -13,6 +13,11 @@
                 <td width="10%">
                     <a href="/FlowerGarden?command=bouquets" class="myButton">Show Bouquets</a>
                 </td>
+                <td>
+                    <c:if test="${not empty error}">
+                        <b>${error}</b>
+                    </c:if>
+                </td>
             </tr>
             <tr>
                 <table id="bouquets_table">

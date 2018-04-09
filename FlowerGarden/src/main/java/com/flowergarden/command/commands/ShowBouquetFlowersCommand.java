@@ -1,10 +1,11 @@
 package com.flowergarden.command.commands;
 
+import com.flowergarden.ApplicationContextWrapper;
 import com.flowergarden.command.Command;
-import com.flowergarden.config.ApplicationContextSingleton;
 import com.flowergarden.flowers.GeneralFlower;
 import com.flowergarden.service.GetBouquetFlowersService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +26,14 @@ public class ShowBouquetFlowersCommand implements Command {
             id = Integer.parseInt(request.getParameter("id"));
         } catch (NumberFormatException e){
             log.error("wrong id");
+            request.setAttribute("error", "Bouquets Flowers not exists");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            return;
         }
         ArrayList<GeneralFlower> flowers = null;
 
         GetBouquetFlowersService getBouquetsFlowersService =
-                ApplicationContextSingleton.getContext().getBean(GetBouquetFlowersService.class);
+                ApplicationContextWrapper.getContext().getBean(GetBouquetFlowersService.class);
 
         if(id > 0) {
             flowers = getBouquetsFlowersService.getFlowers(id);
@@ -37,4 +41,5 @@ public class ShowBouquetFlowersCommand implements Command {
         request.setAttribute("flowers", flowers);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
+
 }

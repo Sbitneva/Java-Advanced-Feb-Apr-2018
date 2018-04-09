@@ -1,8 +1,9 @@
-package com.flowergarden.config;
+package com.flowergarden;
 
 import com.flowergarden.dao.sqlite.SqliteBouquetDao;
 import com.flowergarden.dao.sqlite.SqliteFlowerDao;
 import com.flowergarden.service.GetAllBouquetsService;
+import com.flowergarden.service.GetBouquetFlowersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
@@ -20,12 +21,21 @@ public class ApplicationConfig {
     @Autowired
     private Environment env;
 
-    @Profile("production")
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
         dataSource.setUrl(env.getRequiredProperty("jdbc.url"));
         return dataSource;
+    }
+
+    @Bean
+    public GetBouquetFlowersService getBouquetFlowersService(){
+        return new GetBouquetFlowersService();
+    }
+
+    @Bean
+    public GetAllBouquetsService getAllBouquetsService(){
+        return new GetAllBouquetsService();
     }
 }

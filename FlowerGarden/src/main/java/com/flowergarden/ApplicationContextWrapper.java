@@ -1,13 +1,12 @@
-package com.flowergarden.config;
+package com.flowergarden;
 
-import com.flowergarden.service.GetAllBouquetsService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
-public class ApplicationContextSingleton {
+public class ApplicationContextWrapper {
 
     private static AbstractApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-    private ApplicationContextSingleton(){
+    private ApplicationContextWrapper(){
     }
     public static AbstractApplicationContext getContext(){
         return context;
