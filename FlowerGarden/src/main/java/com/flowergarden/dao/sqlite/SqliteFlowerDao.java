@@ -269,10 +269,10 @@ public class SqliteFlowerDao implements FlowerDao {
                  PreparedStatement statement = connection.prepareStatement(UPDATE_FLOWER_REQUEST)) {
 
                 statement.setInt(1, flower.getLength());
-                statement.setInt(2, ((GeneralFlower) flower).getFreshness().getFreshness());
+                statement.setInt(2,  flower.getFreshness().getFreshness());
                 statement.setFloat(3, flower.getPrice());
-                statement.setInt(6, ((GeneralFlower) flower).getBouquetId());
-                statement.setInt(7, ((GeneralFlower) flower).getFlowerId());
+                statement.setInt(6, flower.getBouquetId());
+                statement.setInt(7, flower.getFlowerId());
                 if (flower instanceof Rose) {
                     statement.setObject(4, null);
                     statement.setBoolean(5, ((Rose) flower).getSpike());
